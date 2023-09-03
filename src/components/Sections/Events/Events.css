@@ -1,0 +1,243 @@
+.projects {
+  font-family: Arial, sans-serif;
+  color: #333;
+  padding: 40px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .events .card {
+  height: 400px;
+} */
+.events .img-container {
+  height: 40%;
+  position: relative;
+}
+
+.events .img-container  img {
+  height: 100%;
+}
+
+
+.events .row > * {
+  padding: 0;
+  max-height: 440px;
+  padding: 0 1rem;
+  border: none;
+}
+
+.titleWrapper {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.line-1 {
+  position: relative;
+  display: inline-block;
+  padding-right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.anim-typewriter {
+  animation: typewriter 4s steps(30) 1s 1 normal both, blinkTextCursor 0.5s steps(44) infinite normal;
+}
+
+.blue_line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #2a56c6;
+  transition: width 0.3s ease-in-out;
+}
+
+.web-development,
+.video-work,
+.other-projects {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.web-development h4,
+.video-work h4,
+.other-projects h4 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.blue_line.smaller {
+  width: 50px;
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 3rem;
+  margin-top: 20px;
+}
+
+
+.project_box {
+  width: 25%;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: #fff;
+  position: relative;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.project_box:hover {
+  transform: translateY(-10px);
+}
+
+.img_wrap {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 10px;
+}
+
+/* Update img_wrap for videos */
+.img_wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.desc_box {
+  /* display: none; */
+  padding: 10px 0;
+}
+
+
+.projects .items .project_box .desc_box {
+  /* transition: all 1s cubic-bezier(0.19, 1, 0.22, 1) 0s; */
+  text-decoration: none;
+  color: rgb(66, 66, 66);
+  position: absolute;
+  bottom: -25px;
+  right: 0px;
+  width: 100%;
+  background: rgba(247, 247, 247, 0.9);
+  box-shadow: rgba(34, 34, 34, 0.18) -4px 8px 20px 0px;
+  padding: 20px;
+}
+
+
+.projects .items .project_box .desc_box .title {
+  font-size: 40px;
+  font-family: Helvetica, sans-serif;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.subtitle {
+  font-size: 16px;
+  /* color: #666; */
+  margin-bottom: 5px;
+}
+
+.tags {
+  font-size: 14px;
+  color: #999;
+}
+
+.personalize {
+  background-color: #e7e6e6;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.personalize .sugestion-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow-x: scroll;
+  padding-bottom: 15px;
+}
+
+.personalize .sugestion-list button {
+  padding: 5px 16px;
+  background-color: #fff;
+  margin: 5px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: none;
+}
+.personalize .sugestion-list button:hover {
+  background-color: #cdcccc;
+}
+
+.personalize .see-more {
+  text-align:  left;
+  margin-top: 5px;
+  cursor: pointer;
+  color: #2a56c6;
+}
+
+/* Keyframes for typewriter effect */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Keyframes for blinking cursor */
+@keyframes blinkTextCursor {
+  from {
+    border-right-color: rgba(0, 0, 0, 0.75);
+  }
+  to {
+    border-right-color: transparent;
+  }
+}
+
+
+/* ... Previous CSS Rules ... */
+
+/* Media queries for responsive design */
+@media screen and (max-width: 1024px) {
+  .projects {
+    padding: 20px;
+  }
+
+  .items {
+    gap: 10px;
+  }
+
+  .project_box {
+    width: calc(50% - 10px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .items {
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .project_box {
+    width: 90%;
+  }
+}
+
+/* ... Rest of the Previous CSS Rules ... */
+

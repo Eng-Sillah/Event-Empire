@@ -1,0 +1,22 @@
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Custom overlay style */
+.custom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.89); /* Adjust opacity as needed */
+    z-index: 1000; /* Place the overlay below default Bootstrap modal */
+}
+
+.modal p {
+    text-align: justify;
+    padding: 10px 0;
+    color: black;
+    font-size: 1.1rem;
+}

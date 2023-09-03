@@ -1,0 +1,76 @@
+.categories-section {
+    width: 90%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.categories-section .area {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.categories-section .area select {
+    margin-left: 1.1rem;
+    width: 150px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+.categories-section .area select  option {
+    padding: 0;
+    margin: 0;
+}
+
+.categories-section .sections ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.categories-section .sections ul li {
+    list-style: none;
+}
+
+.categories-section .sections ul li:hover {
+    color: orange;
+}
+
+.categories-section .sections .trending-categories {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.categories-section .sections .trending-categories div {
+    width: 20%;
+    background-color: rgb(206, 206, 203);
+    padding: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.categories-section .sections .trending-categories div:hover {
+    background-color: rgb(183, 183, 181);
+}
+
+
+
+
+
+
+
+
+
+
+
+

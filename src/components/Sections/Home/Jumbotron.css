@@ -1,0 +1,54 @@
+.jumbotron-section {
+    height: 60vh;
+    background-image: url('../../../img/jumbotronBackground.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jumbotron-section .jumbotron-content {
+    z-index: 66;
+    position: relative;
+    color: white;
+    width: 70%;
+}
+
+.jumbotron-section .jumbotron-content h1 {
+    font-size: 4rem;
+    margin: 0;
+}
+.jumbotron-section .jumbotron-content p {
+    font-size: 1.1rem;
+    font-family: Helvetica, sans-serif;
+    line-height: 25px;
+}
+
+.jumbotron-section .jumbotron-content button {
+    padding: 5px 45px;
+    background-color: rgb(252, 138, 7);
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.jumbotron-section .jumbotron-content button:hover {
+    background-color: rgb(194, 106, 6);
+}
+
+.jumbotron-section .overlay {
+    height: 100%;
+    background-color: black;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}

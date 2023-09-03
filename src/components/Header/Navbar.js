@@ -9,7 +9,7 @@ function Navbar() {
     return (
         <div className="Navbar-container">
             <div className="logo">
-                <img src={logoImg}/>
+                <img src={logoImg} alt="Logo"/>
                 <input type="search" placeholder="Search Event"/>
             </div>
             <ul className="Navbar-links">

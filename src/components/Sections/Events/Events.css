@@ -176,6 +176,7 @@
   border-radius: 15px;
   cursor: pointer;
   border: none;
+  outline: none;
 }
 .personalize .sugestion-list button:hover {
   background-color: #cdcccc;

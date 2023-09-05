@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 10px;
 }
 
 .jumbotron-section .jumbotron-content {
@@ -20,6 +21,16 @@
 .jumbotron-section .jumbotron-content h1 {
     font-size: 4rem;
     margin: 0;
+    margin-bottom: 30px;
+}
+.jumbotron-section .jumbotron-content span {
+    font-size: 6rem;
+    font-weight: bolder;
+    color: rgb(252, 138, 7);
+    text-decoration: underline;
+    margin: 0;
+    line-height: 0;
+    
 }
 .jumbotron-section .jumbotron-content p {
     font-size: 1.1rem;
@@ -51,4 +62,29 @@
     left: 0;
     right: 0;
     z-index: 2;
+}
+
+@media (max-width: 768px) {
+
+    .jumbotron-section {
+        height: 60vh;
+       
+    }
+
+    .jumbotron-section .jumbotron-content {
+        width: 90%;
+    }
+    .jumbotron-section .jumbotron-content h1 {
+        font-size: 3.5rem;
+        margin-bottom: 30px;
+        line-height: 55px;
+    }
+
+    .jumbotron-section .jumbotron-content span {
+        font-size: 4.2rem;
+        font-weight: bolder;
+        color: rgb(252, 138, 7)
+        
+    }
+    
 }

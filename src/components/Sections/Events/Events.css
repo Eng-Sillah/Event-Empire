@@ -23,9 +23,40 @@
 
 .events .row > * {
   padding: 0;
-  max-height: 440px;
+  max-height: 460px;
   padding: 0 1rem;
   border: none;
+}
+.events .card-body {
+  text-align: left;
+}
+
+.events .card-body .card-title {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-bottom: 15px;
+}
+
+.events .card-body .card-text-date {
+  color: red;
+}
+
+.events .card-body .card-text-price {
+  color: blue;
+  font-weight: bolder;
+}
+
+.events .card-body button:hover {
+  background-color: rgb(252, 138, 7);
+  border: 1px solid rgb(252, 138, 7);
+}
+.events .card-body .card-text-venue {
+  color: rgb(242, 142, 2);
+}
+
+.events .card-body .button {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .titleWrapper {

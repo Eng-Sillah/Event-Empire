@@ -5,11 +5,10 @@ import conquestImage from '../../../img/the conquest.jpg';
 import kmeEmpireImage from '../../../img/KME Empire.jpg';
 import gbamImage from '../../../img/Gbam festiva.jpg';
 import ecoFeast2021Image from '../../../img/Eco feast 2021.jpg';
-import shukublyImage from '../../../img/Shukubly.jpg';
 import '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Modal from './Modal';
 
-function Events() {
+function MoreEvents() {
   const projectsData = [
     {
       id: 'bankist',
@@ -17,7 +16,7 @@ function Events() {
       date: 'Thu, Dec 15, 8:00 PM + 3 more event',
       venue: 'National Stadium, Freetown',
       region: 'Western Area',
-      ticketPrice: 'Le 150',
+      ticketPrice: 'Le 50',
       subtitle: 'Product showcase website',
       backgroundImage: conquestImage,
       tags: 'web development',
@@ -33,7 +32,7 @@ function Events() {
       date: 'Thu, Dec 15, 8:00 PM + 3 more event',
       venue: 'National Stadium, Freetown',
       region: 'Western Area',
-      ticketPrice: 'Le 100',
+      ticketPrice: 'Le 50',
       subtitle: 'E-commerce website',
       backgroundImage: freetownFestivalImage,
       tags: 'web development | web design',
@@ -55,7 +54,7 @@ function Events() {
       date: 'Thu, Dec 15, 8:00 PM + 3 more event',
       venue: 'National Stadium, Freetown',
       region: 'Western Area',
-      ticketPrice: 'Le 200',
+      ticketPrice: 'Le 50',
       subtitle: 'Number guessing game',
       backgroundImage: kmeEmpireImage,
       tags: 'web development | web design',
@@ -68,10 +67,6 @@ function Events() {
     {
       id: 'gbam-festival-eve',
       title: 'Gbam Festival Eve',
-      date: 'Thu, Dec 15, 8:00 PM + 3 more event',
-      venue: 'National Stadium, Freetown',
-      region: 'Western Area',
-      ticketPrice: 'Le 100',
       subtitle: 'Number guessing game',
       backgroundImage: gbamImage,
       tags: 'web development | web design',
@@ -83,11 +78,7 @@ function Events() {
     },
     {
       id: 'guess-number',
-      title: 'EcoFeast Sierra Leone 2021',
-      date: 'Thu, Dec 15, 8:00 PM + 3 more event',
-      venue: 'National Stadium, Freetown',
-      region: 'Western Area',
-      ticketPrice: 'Le 150',
+      title: 'Guess My Number',
       subtitle: 'Number guessing game',
       backgroundImage: ecoFeast2021Image,
       tags: 'web development | web design',
@@ -98,14 +89,10 @@ function Events() {
       // Add more project details
     },
     {
-      id: 'shukubly-festival',
-      title: 'Shukubly Festival',
-      date: 'Thu, Dec 15, 8:00 PM + 3 more event',
-      venue: 'National Stadium, Freetown',
-      region: 'Western Area',
-      ticketPrice: 'Le 30',
+      id: 'guess-number',
+      title: 'Guess My Number',
       subtitle: 'Number guessing game',
-      backgroundImage: shukublyImage,
+      backgroundImage: gbamImage,
       tags: 'web development | web design',
       alt: 'Guess Image',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
@@ -115,6 +102,7 @@ function Events() {
     },
     // Add more project objects
   ];
+
 
   const [modal, setModal] = useState(false);
   const [tempdata, setTempdata] = useState([]);
@@ -129,7 +117,7 @@ function Events() {
 
   return (
     <div className="events py-4 py-lg-5 container">
-      <h1>Western Area Events</h1>
+      <h1>More Events</h1>
       <div className='row justify-content-center align-item-center'>
 
         {projectsData.map((project, index) => {
@@ -141,14 +129,13 @@ function Events() {
                     </div>
                     <div className="card-body">
                       <h5 className="card-title">{project.title}</h5>
-                      <p className="card-text-date">{project.date}</p>
-                      <p className="card-text-venue">{project.venue}</p>
-                      <p className="card-text-area">{project.region}</p>
-                      <p className="card-text-price">Price: {project.ticketPrice}</p>
+                      <p className="card-text">{project.date}</p>
+                      <p className="card-text">{project.venue}</p>
+                      <p className="card-text">{project.region}</p>
+                      <p className="card-text">{project.ticketPrice}</p>
                       <div className='button'>
                       <button className='btn btn-primary' onClick={() => getData(project.backgroundImage, project.title, project.description)}>View Event</button>
                       </div>
-                      
                     </div>
                   </div>
                   
@@ -165,40 +152,11 @@ function Events() {
         modal === true ? <Modal title={tempdata[2]} backgroundImage={tempdata[1]} tag={tempdata[2]} description={tempdata[3]} hide={()=> {setModal(false)}}/> : ''
       }
       <button>See More</button>
-
-      <div className='personalize'>
-        <h3>Let't make it personal</h3>
-        <p>Select your interests to get event suggestions based on what you love</p>
-        <div className='sugestion-list'>
-          <button>Commedy</button>
-          <button>Food</button>
-          <button>Education</button>
-          <button>Pop</button>
-          <button>design</button>
-          <button>R&B</button>
-          <button>Hip Hop/Rap</button>
-          <button>Film</button>
-          <button>Personal Health</button>
-          <button>Blues & Jazz</button>
-          <button>Travel</button>
-          <button>Rock</button>
-          <button>Yoga</button>
-          <button>Country</button>
-          <button>Startups & Small Business</button>
-          <button>Classical</button>
-          <button>Mental Health</button>
-          <button>TV</button>
-          <button>Alternative</button>
-          <button>Musical</button>
-        </div>
-        <h6 className='see-more'>See More</h6>
-        
-      </div>
-      <hr />
+      
     </div>
 
   
   );
 }
 
-export default Events;
+export default MoreEvents;

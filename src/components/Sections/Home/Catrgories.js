@@ -15,7 +15,7 @@ function Categories() {
                 </select>
             </div>
             <div className="sections">
-                <ul>
+                <ul className="gerner">
                     <li>All</li>
                     <li>For You</li>
                     <li>Online</li>

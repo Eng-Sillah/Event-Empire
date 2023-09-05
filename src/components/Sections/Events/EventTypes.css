@@ -1,0 +1,101 @@
+.organize {
+    width: 85%;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+.organize hr {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(183, 180, 180);
+    margin-bottom: 30px;
+}
+.organize .event img {
+    width: 100%;
+    height: 200px;
+}
+.organize .event {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    text-align: left;
+}
+.organize .event .content {
+    margin-left: 35px;
+    position: relative;
+    padding-bottom: 40px;
+    text-align: justify;
+}
+.organize .event .content button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #666;
+    color: white;
+    padding: 3px 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.organize .event .content button:hover {
+    background-color: rgb(57, 56, 56);
+}
+
+
+.upcommingEvent {
+    width: 100%;
+    margin: 0 auto;
+}
+.upcommingEvent .events .jumbotron {
+    width: 100%;
+    height: 300px;
+    padding: 0;
+}
+.upcommingEvent .events .jumbotron img {
+    width: 100%;
+    height: 100%;
+}
+.upcommingEvent .events .event-list {
+    display: flex;
+}
+.upcommingEvent .events .event-list .list {
+    width: 25%;
+    margin: 3px 10px;
+    height: 160px;
+}
+.upcommingEvent .events .event-list .list img {
+    width: 100%;
+    height: 100%;
+}
+
+
+@media (max-width: 768px) {
+
+    .organize .event {
+        flex-direction: column;
+    }
+
+    .organize .event .content {
+       width: 100%;
+       margin: 0;
+       margin-top: 10px;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: flex-start;
+    }
+
+   .upcommingEvent .events .event-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+   }
+
+   .upcommingEvent .events .event-list .list {
+    width: 48%;
+    background-color: aqua;
+    margin: 10px 0;
+   }
+    
+}

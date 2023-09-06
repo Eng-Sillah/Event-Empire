@@ -23,12 +23,13 @@
 
 .events .row > * {
   padding: 0;
-  max-height: 460px;
+  /* max-height: 500px; */
   padding: 0 1rem;
   border: none;
 }
 .events .card-body {
   text-align: left;
+  position: relative;
 }
 
 .events .card-body .card-title {
@@ -57,6 +58,11 @@
 .events .card-body .button {
   text-align: center;
   margin-bottom: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 .titleWrapper {

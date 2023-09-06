@@ -1,9 +1,17 @@
 #contact {
     position: relative;
-    padding: 80px 0 80px 0;
-    background-color: #c5c2c2;
+    padding: 40px 0;
 }
 
+#contact h3 {
+    font-size: 45px;
+    color: #666;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 25px;
+}
 #contact .g-map {
     background: #ffffff;
 }
@@ -15,16 +23,22 @@
 
 
 #contact .form {
-    background: #fff;
     color: #666666;
     font-weight: 400;
     text-align: left;
 }
 
+
 #contact .form .form-row {
     display: flex;
-    background-color: #222222;
+    justify-content: space-between;
+    /* background-color: #222222; */
 }
+
+#contact .form .form-row  div {
+    width: 49%;
+}
+
 
 #contact .form #sendmessage {
     color: #D2691E;
@@ -60,12 +74,15 @@
     font-size: 13px;
 }
 
+
+
 #contact .form input,
 #contact .form textarea {
     padding: 10px 14px;
     border-radius: 0;
     box-shadow: none;
     font-size: 16px;
+    margin-bottom: 15px;
 }
 
 #contact .form input:focus,

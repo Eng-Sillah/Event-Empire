@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
 import './Events.css'; // Import the CSS file for the Projects section
-import freetownFestivalImage from '../../../img/freetown music festival.jpg';
-import conquestImage from '../../../img/the conquest.jpg';
-import kmeEmpireImage from '../../../img/KME Empire.jpg';
-import gbamImage from '../../../img/Gbam festiva.jpg';
-import ecoFeast2021Image from '../../../img/Eco feast 2021.jpg';
-import shukublyImage from '../../../img/Shukubly.jpg';
 import '../../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import Modal from './Modal';
 

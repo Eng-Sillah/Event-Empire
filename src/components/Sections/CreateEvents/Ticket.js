@@ -56,8 +56,8 @@ function Ticket() {
         <div className="visibility">
             <label for="Visibility">Visibility</label>
             <select name="" id="">
-                <option value="visible" aria-placeholder="Visibility">Visible</option>
-                <option value="visible" aria-placeholder="Visibility">Hidden</option>
+                <option value="visible" placeholder="Visibility">Visible</option>
+                <option value="visible" placeholder="Visibility">Hidden</option>
             </select>
         </div>
         <p id="perOrderTic">Ticket per order</p>
@@ -93,13 +93,13 @@ function Ticket() {
             <input type="checkbox" />
             <label for="">Show ticket sales end dates and status at checkout</label>
         </div>
-        <textarea name="title" placeholder="Description* &#10;Tell attendees more about this ticket." class="popTickDesc"></textarea>
+        <textarea name="title" placeholder="Description* &#10;Tell attendees more about this ticket." className="popTickDesc"></textarea>
         
         <div className="visibility">
             <label for="Visibility">Visibility</label>
             <select name="" id="">
-                <option value="visible" aria-placeholder="Visibility">Visible</option>
-                <option value="visible" aria-placeholder="Visibility">Hidden</option>
+                <option value="visible" placeholder="Visibility">Visible</option>
+                <option value="visible" placeholder="Visibility">Hidden</option>
             </select>
         </div>
         <p class="perOrderTic">Ticket per order</p>
@@ -144,8 +144,8 @@ function Ticket() {
         <div className="visibility">
             <label for="Visibility">Visibility</label>
             <select name="" id="">
-                <option value="visible" aria-placeholder="Visibility">Visible</option>
-                <option value="visible" aria-placeholder="Visibility">Hidden</option>
+                <option value="visible" placeholder="Visibility">Visible</option>
+                <option value="visible" placeholder="Visibility">Hidden</option>
             </select>
         </div>
         <p className="perOrderTic">Ticket per order</p>

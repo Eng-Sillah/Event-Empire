@@ -1,0 +1,69 @@
+.basic {
+    width: 100;
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-right: 30px;
+    text-align: left;
+    font-size: 16px;
+    position: relative;
+}
+
+.basic textarea {
+    margin: 8px 0;
+    padding: 8px 15px;
+    font-size: 1rem;
+}
+
+.basic .cat_container {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin-bottom: 50px;
+}
+
+.basic .cat_container select {
+    padding: 5px;
+}
+
+.basic .discovery {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.basic .discovery input {
+    width: 89%;
+    margin-bottom: 0;
+}
+
+.basic .discovery button {
+    width: 10%;
+    background-color: rgb(252, 138, 7);
+}
+
+.basic .tag_container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.basic .tag_container p {
+    background-color: rgb(197, 195, 195);
+    padding: 5px 10px;
+    margin: 0 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.basic .tag_container p:hover {
+    background-color: rgb(87, 86, 86);
+    color: white;
+}
+
+.filled-input {
+    background-color: #dfdede; /* You can adjust the color as needed */
+  }

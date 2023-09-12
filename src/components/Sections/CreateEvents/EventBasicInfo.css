@@ -1,0 +1,185 @@
+.basic_main_container {
+    width: 75%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 85px;
+}
+
+.basic_main_container .info {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: 1rem;
+}
+
+.basic_main_container textarea {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 5px 15px;
+    font-size: 1rem;
+    resize: none;
+}
+.basic_main_container .cat_container {
+    display:  flex;
+    justify-content: flex-start;
+    align-items: center;
+} 
+.basic_main_container .cat_container select {
+    padding: 15px;
+    font-size: 1rem;
+    margin-right: 40px;
+    width: 30%;
+    cursor: pointer;
+    border-color: blue;
+}
+
+.basic_main_container .tags-area{
+    margin-top: 50px;
+    text-align: left;
+    width: 80%;
+}
+
+.basic_main_container .tags-area .tag_contron {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.basic_main_container .tags-area .tag_contron  input {
+    width: 90%;
+}
+.basic_main_container .tag_discovery {
+    width: 80%;
+    padding: 15px;
+    font-size: 1rem;
+}
+
+.basic_main_container button {
+    padding: 5px 15px;
+    font-weight: bolder;
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.basic_main_container .tag {
+    margin-bottom: 5px;
+}
+.basic_main_container button:hover {
+    background-color: rgb(49, 49, 248);
+}
+
+.basic_main_container .locations {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.basic_main_container .locations .location {
+border: 1px solid grey;
+padding: 10px 20px;
+margin-right: 20px;
+border-radius: 5px;
+font-weight: bold;
+cursor: pointer;
+}
+
+.basic_main_container .locations .location:hover {
+    background-color: rgb(224, 224, 224);
+}
+
+.basic_main_container .locations .venue {
+    background-color: rgb(213, 237, 252);
+    color: rgb(35, 79, 252);
+}
+
+.event_basic_location {
+    margin-top: 50px;
+    margin-bottom: 5px;
+}
+
+.venue_location {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.venue_search {
+    padding: 15px;
+    font-size: 1rem;
+    width: 80%;
+}
+.dateAndTime {
+    margin-top: 40px;
+    margin-bottom: 5px;
+}
+
+.time_container {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.time_container input {
+    width: 45%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.display {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.display input {
+    margin-right: 10px;
+}
+.display label {
+    font-size: 15px;
+}
+.display label span {
+    font-weight: 700;
+}
+ .timeAndLanguage select {
+    margin: 7px 0;
+    padding: 10px;
+    font-size: 0.9rem;
+ }
+ .actionbtn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px 0 50px 0;
+    width: 80%;
+ }
+ .actionbtn button {
+    padding: 10px 20px;
+ }
+
+.actionbtn .discard {
+    margin-right: 10px;
+    background-color: #e8ebee;
+    color: #000000;
+    border: 1px solid rgb(106, 105, 105);
+}
+
+.actionbtn .save_continue {
+    background-color: orangered;
+    border: 1px solid orangered;
+    color: white;
+}
+.actionbtn .save_continue a {
+    color: white;
+    
+}
+
+.timeAndLanguage {
+    display: flex;
+    flex-direction: column;
+}

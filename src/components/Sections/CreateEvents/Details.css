@@ -1,0 +1,173 @@
+.detail {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-left: 50px;
+}
+.detail_image_container {
+    width: 80%;
+    height: 300px;
+    background-color: #e0e0e0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.detail_image_container .upload_way {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail_image_container .upload_way .ways {
+    background-color: #fbfbfb;
+    margin: 10px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    border: 1px solid grey;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.detail_image_container .upload_way .ways p {
+    margin: 0;
+    padding: 0;
+}
+.upload_sizes {
+    width: 100%;
+}
+.upload_sizes ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+.upload_sizes ul li {
+    margin-left: 0;
+    padding-left: 0;
+    width: 50%;
+    /* list-style: none; */
+}
+.attendees_sta {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0;
+    background-color: #e4e3e3;
+    padding: 25px 0;
+    border-radius: 10px;
+}
+
+.attendees_sta .stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 55%;
+}
+.attendees_sta .stat .stat_img {
+    width: 40px;
+    height: 23px;
+    background-color: #fa0a0a;
+    border-radius: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.attendees_sta .stat .stat_percentage p {
+    padding: 0;
+    margin: 0;
+}
+.attendees_sta .see_example {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    padding: 0 30px;
+}
+.attendees_sta .see_example button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    color: rgb(252, 138, 7);
+    background-color: transparent;
+    font-weight: bold;
+}
+.attendees_sta .see_example button:hover {
+    background-color: transparent;
+    color: rgb(15, 15, 165);
+}
+.attendees_sta .see_example h4 {
+    padding: 0;
+    margin: 0;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.summary {
+    width: 80%;
+}
+.summary p span {
+    color: blue;
+    cursor: pointer;
+}
+.summary h2 {
+    margin-bottom: 0;
+}
+.summary p {
+    margin-top: 5px;
+}
+.description {
+    width: 80%;
+}
+.description h2 {
+    margin-bottom: 0;
+}
+.description p {
+    margin-top: 5px;
+}
+.textAreaOptionControls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 10px;
+}
+
+.create_container .main_container .textAreaOptionControls button {
+    padding: 10px 35px;
+    font-weight: normal;
+}
+.create_container .main_container .more_sectons {
+    width: 80%;
+    margin-bottom: 30px;
+}
+.more_sectons h2 {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5px;
+}
+
+.how_it_work {
+    border: 2px dotted grey;
+    padding: 20px 40px;
+    margin-bottom: 50px;
+}
+
+.how_it_work .work_sect {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+.create_container .main_container .how_it_work .work_sect button {
+    padding: 8px 30px;
+    margin-left: 15px;
+}
+.space {
+width: 80%;
+height: 100px;
+}

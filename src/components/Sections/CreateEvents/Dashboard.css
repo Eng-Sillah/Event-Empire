@@ -1,0 +1,144 @@
+
+.dashboard_main_container {
+    width: 100%;
+    padding-left: 50px;
+    text-align: left;
+}
+.cards_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.cards_container .sold_container {
+    /* background-color: #863b04; */
+    width: 60%;
+   display: flex;
+   justify-content: space-between;
+}
+.cards_container .sold_container .ticket_sold {
+    width: 45%;
+    padding: 8px 10px;
+}
+.cards_container .todo {
+    width: 35%;
+}
+.cards_container .todo .cretae_ticket {
+    color: rgb(4, 4, 201);
+    margin-top: 3px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.cards_container .ticket_card p {
+    margin: 0;
+}
+.cards_container .ticket_sold span {
+    margin-bottom: 20px;
+}
+.cards_container .ticket_sold h3 {
+    margin: 5px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #000000;
+}
+.cards_container .ticket_sold {
+    box-shadow: rgba(45, 45, 45, 0.35) 0px 2px 2px;
+    width: 25%;
+}
+.share_recomm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin: 20px 0;
+}
+.share_recomm h2 {
+    width: 60%;
+    color: #000000;
+}
+.share_recomm h3 {
+    width: 31%;
+    color: #000000;
+}
+.share_recom_container .share p {
+    margin: 0;
+    margin-bottom: 2px;
+}
+.share_recom_container h2,
+.share_recom_container h3 {
+    color: #000000;
+    font-weight: bolder;
+}
+.share_recom_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* background-color: #863b04; */
+}
+.share_recom_container .share {
+    width: 65%;
+}
+.share_recom_container .recomend {
+    width: 35%;
+}
+.share_recom_container .share .url {
+    margin-bottom: 30px;
+}
+.share_recom_container .recomend  div {
+    margin-bottom: 30px;
+}
+.share_recom_container .recomend p {
+    margin: 4px;
+}
+.share_recom_container .recomend .read {
+    color: rgb(24, 24, 153);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.social_media_icon {
+    display: flex;
+    align-items: center;
+}
+
+.social_media_icon div {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    position: relative;
+    cursor: pointer;
+}
+.social_media_icon div img {
+    width: 20px;
+    height: 20px;
+}
+
+.ticket_sales_report ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    width: 70%;
+    margin-bottom: 5px;
+}
+.ticket_sales_report ul li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sales_report_img_cont .share {
+text-align: center;
+}
+.sales_report_img_cont .share .sales_report_img {
+    font-size: 3rem;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 0;
+}
+.recent_order {
+    margin-top: 30px;
+}
+
+.dash_sold {
+    margin-bottom: 5px;
+}

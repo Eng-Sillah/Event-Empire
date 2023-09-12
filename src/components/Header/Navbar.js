@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import './Navbar.css';
-import { Link } from 'react-scroll';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link as ScrollLinks } from 'react-scroll';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,11 +19,12 @@ function Navbar() {
       </div>
       <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
         <ul className="nav-list">
-          <li><Link to="home" smooth={true} duration={500} onClick={toggleMenu}>Home</Link></li>
-          <li><Link to="events" smooth={true} duration={500} onClick={toggleMenu}>Discover</Link></li>
-          <li><Link to="skills" smooth={true} duration={500} onClick={toggleMenu}>About</Link></li>
-          <li><Link to="projects" smooth={true} duration={500} onClick={toggleMenu}>Create Event</Link></li>
-          <li><Link to="contact" smooth={true} duration={500} onClick={toggleMenu}>Contact</Link></li>
+          <li><Link to="./layout" onClick={toggleMenu}>Home</Link></li>
+          <li><ScrollLinks to="events" smooth={true} duration={500} onClick={toggleMenu}>Discover</ScrollLinks></li>
+          <li><ScrollLinks to="about" smooth={true} duration={500} onClick={toggleMenu}>About</ScrollLinks></li>
+          {/* Use the "to" attribute with the route path */}
+          <li><Link to="./create-event" onClick={toggleMenu}>Create Event</Link></li>
+          <li><ScrollLinks to="contact" smooth={true} duration={500} onClick={toggleMenu}>Contact</ScrollLinks></li>
           <li><a href="https://github.com/your-username" onClick={toggleMenu}>Login</a></li>
         </ul>
       </nav>

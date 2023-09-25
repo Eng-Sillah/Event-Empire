@@ -1,6 +1,5 @@
 .publish_main_container {
     width: 100%;
-    height: 200px;
     padding-left: 50px;
     text-align: left;
 }
@@ -17,7 +16,7 @@
     padding: 20px 10px;
     border-radius: 5px;
     margin-top: 20px;
-    width: 93%;
+    width: 95%;
 }
 
 .publish_main_container .complete_setup p {
@@ -150,3 +149,54 @@
 .publish_date textarea {
     width: 50%;
 }
+
+
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+    .publish_main_container {
+        padding-left: 20px; /* Adjust padding for smaller screens */
+    }
+
+    .publish_main_container .banner_container {
+        flex-direction: column; /* Stack items for smaller screens */
+    }
+    
+    .tips_container {
+        flex-direction: column; /* Stack items for smaller screens */
+        width: 95%;
+        margin-bottom: 30px;
+    }
+    .tips_container .tips_left,
+    .tips_container .tips_right {
+        width: 100%;
+    }
+
+    .publish-public,
+    .publish-private {
+        flex-direction: column; /* Stack items for smaller screens */
+        align-items: flex-start;
+    }
+
+    .publish_main_container .banner_container {
+        height: 500px;
+        background-color: aqua;
+        display: flex;
+        position: relative;
+    }
+
+    .publish_main_container .banner_container .publish_flyer,
+    .publish_main_container .banner_container  .publish_title_name
+     {
+        width: 100%;
+    }
+    .tips_right .tips {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+
+
+
+
+

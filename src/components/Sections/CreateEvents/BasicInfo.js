@@ -3,7 +3,7 @@ import './BasicInfo.css';
 
 function BasicInfo({formData}) {
   // Step 1: Set up state
-  const [eventData, setEventData] = useState({
+  const [eventBasicInfoData, setEventBasicInfoData] = useState({
     title: formData.title, // Initialize with the title from formData
     organizer: formData.organizer, // Initialize with the organizer from formData
     eventType: 'Concert or Performance',
@@ -18,16 +18,16 @@ function BasicInfo({formData}) {
   // Step 2: Capture user input and update state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEventData((prevData) => ({
+    setEventBasicInfoData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   const handleAddTag = () => {
-    const newTag = eventData.tag.trim();
+    const newTag = eventBasicInfoData.tag.trim();
     if (newTag) {
-      setEventData((prevData) => ({
+      setEventBasicInfoData((prevData) => ({
         ...prevData,
         tags: [...prevData.tags, newTag],
         tag: '', // Clear the tag input
@@ -36,7 +36,7 @@ function BasicInfo({formData}) {
   };
 
   const handleRemoveTag = (tagToRemove) => {
-    setEventData((prevData) => ({
+    setEventBasicInfoData((prevData) => ({
       ...prevData,
       tags: prevData.tags.filter((tag) => tag !== tagToRemove),
     }));
@@ -46,7 +46,7 @@ function BasicInfo({formData}) {
 
   // Step 3: Create an object to store all the data
   const handleSubmit = () => {
-    console.log('Event Data:', eventData); // Replace with your logic to send the data
+    console.log('Event Data:', eventBasicInfoData); // Replace with your logic to send the data
   };
 
   // Step 4: Dynamically set dropdown options
@@ -62,18 +62,18 @@ function BasicInfo({formData}) {
         type="text"
         name="title"
         placeholder="Event Title"
-        value={eventData.title}
+        value={eventBasicInfoData.title}
         onChange={handleInputChange}
-        className={filledInputClass(eventData.title)}
+        className={filledInputClass(eventBasicInfoData.title)}
         readOnly // Make the input field read-only
       />
       <input
         type="text"
         name="organizer"
         placeholder="Organizer"
-        value={eventData.organizer}
+        value={eventBasicInfoData.organizer}
         onChange={handleInputChange}
-        className={filledInputClass(eventData.title)}
+        className={filledInputClass(eventBasicInfoData.title)}
         readOnly // Make the input field read-only
       />
       
@@ -81,7 +81,7 @@ function BasicInfo({formData}) {
       <div className="cat_container">
         <select
           name="eventType"
-          value={eventData.eventType}
+          value={eventBasicInfoData.eventType}
           onChange={handleInputChange}
         >
           {eventTypeOptions.map((option) => (
@@ -92,7 +92,7 @@ function BasicInfo({formData}) {
         </select>
         <select
           name="eventCategory"
-          value={eventData.eventCategory}
+          value={eventBasicInfoData.eventCategory}
           onChange={handleInputChange}
         >
           {eventCategoryOptions.map((option) => (
@@ -103,7 +103,7 @@ function BasicInfo({formData}) {
         </select>
         <select
           name="eventGenre"
-          value={eventData.eventGenre}
+          value={eventBasicInfoData.eventGenre}
           onChange={handleInputChange}
         >
           {eventGenreOptions.map((option) => (
@@ -122,14 +122,14 @@ function BasicInfo({formData}) {
           name="tag"
           className="tag_discovery"
           placeholder="Press Enter to add a tag. Add search keywords to your event"
-          value={eventData.tag || ''}
+          value={eventBasicInfoData.tag || ''}
           onChange={handleInputChange}
         />
-        <button onClick={handleAddTag}>Add</button>
+        <button className='add_tag' onClick={handleAddTag}>Add</button>
       </div>
 
       <div className="tag_container">
-        {eventData.tags.map((tag) => (
+        {eventBasicInfoData.tags.map((tag) => (
           <p key={tag}>
             {tag} <span className="x" onClick={() => handleRemoveTag(tag)}>X</span>
           </p>

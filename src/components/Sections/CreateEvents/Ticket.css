@@ -1,193 +1,187 @@
-.ticket_main_container {
-    margin-top: 10px;
-    /* background-color: #be2020; */
-    position: relative;
-    
-}
-.ticket_main_container .big_main {
-    /* background-color: yellow; */
+.ticket-container {
     width: 80%;
-    height: 85vh;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.section-navigation {
     display: flex;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-}
-.ticket_main_container .big_main .main {
-    width: 47%;
 }
 
-.ticket_main_container .main button {
-padding: 10px 25px;
-background-color: #f8f8f8;
-}
-.ticket_main_container .main .add_ticket {
-background-color: #e43c09;
-color: white;
-}
-
-.ticket_main_container .main  .ticket_section {
-display: flex;
-justify-content: space-around;
-}
-
-.ticket_popup {
-width: 38%;
-height: 83vh;
-/* background-color: #863b04; */
-position: absolute;
-top: 0;
-right: 0;
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-padding: 10px;
-}
-.ticket_popup .ticket-header{
-    display: flex;
-    justify-content: space-between;
-}
-.ticket_popup .header h3, .ticket_popup .ticket-header p {
-margin: 0;
-padding: 0;
+.section-dot {
+    width: 40px; /* Increase width for centering text */
+    height: 40px; /* Increase height for centering text */
+    background-color: #ccc;
+    border: 2px solid #aaa;
+    border-radius: 50%;
+    margin: 30px 10px;
+    display: flex; /* Enable centering of content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-size: 20px; /* Adjust font size for the section number */
 }
 
-.ticket_popup .add_ticket_container .ticket_type {
-    width: 95%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.ticket_popup .add_ticket_container .ticket_type button {
-padding: 10px 40px;
-background-color: #f8f8f8;
-}
-.ticket_popup .add_ticket_container .ticket_type .btnpaid {
-    background-color: rgb(140, 208, 251);
+.section-dot.active {
+    background-color: #007BFF;
+    border-color: #007BFF;
 }
 
-.ticket_popup .add_ticket_container textarea {
-    margin-top: 25px;
-    margin-bottom: 0;
-    width: 91%;
-    box-shadow: rgba(45, 45, 45, 0.35) 0px 2px 2px;
+.section {
+    display: block;
 }
 
-.event_date_container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+.section-hidden {
+    display: none;
+}
+
+h2 {
+    font-size: 24px;
     margin-bottom: 10px;
 }
-.ticket_popup .add_ticket_container .event_date_container textarea {
-    width: 38%;
-}
-.ticket_popup .add_ticket_container .ticket_types {
-    height: 78vh;
-    width: 100%;
-}
-.ticket_popup .add_ticket_container .paid, 
-.ticket_popup .add_ticket_container .free_ticket,
-.ticket_popup .add_ticket_container .donation_ticket {
-    /* background-color: yellow; */
-    height: 82%;
-    overflow-y: scroll;
+
+.section p {
+    font-size: 16px;
+    margin-bottom: 20px;
 }
 
-.ticket_popup .add_ticket_container .ticket_types .save_cancle {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+.ticket-types-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.ticket_popup .add_ticket_container .ticket_types .save_cancle button {
-background-color: #e43c09;
-margin: 10px;
-width: 35%;
-color: white;
-font-size: 0.9rem;
-padding: 10px;
-}
-.ticket_popup .add_ticket_container .ticket_types .save_cancle .btncancle {
-    background-color: white;
-    color: rgb(41, 40, 40);
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-.gmt {
-    padding: 0;
-    margin-bottom: 5px;
-    margin-top: 20px;
-}
-.btnPaidScrol {
-    cursor: pointer;
-    padding-left: 5px;
-}
-
-.advance_setting p {
+.ticket-type {
+    width: 30%;
     margin: 10px 0;
 }
-.displaySales {
+
+.ticket-type label {
     display: flex;
-    width: 95%;
     align-items: center;
-}
-.displaySales label {
-    margin-left: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
-#popTickDesc {
-    padding: 15px 10px;
+.ticket-type input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5);
 }
-.advance_setting select {
-    width: 96%;
+
+.ticket-type input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.section-buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.section-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 40px;
+}
+
+.section-buttons button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+/* Add this style for the sidebar on the left */
+.sidebarRight {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 93vh;
+  background-color: white;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3); /* Note the negative X offset for left positioning */
+  color: black;
+  margin-top: 30px;
+}
+
+.sidebarRight .sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom: 1px solid rgb(183, 182, 182);
+  position: fixed;
+  width: 25%;
+  background-color: white;
+}
+
+.sidebarRight .tab-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+}
+
+#standardTicketName {
+    width: 100%;
+}
+/* Style for the tab content in the sidebar */
+.tab-content {
+  margin-top: 23%;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  height: 82%;
+  overflow-y: scroll;
+  text-align: left;
+}
+
+.tab-content h4 {
+  margin: 0 0 10px;
+}
+
+.tab-content label {
+  display: block;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.tab-content input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+/* Style for the active tab */
+.tab-control button.active {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.controls-button {
+    display: flex;
+    justify-content: space-between;
     padding: 10px;
 }
-.visibility {
-    margin-top: 15px;
-}
-.ticket_per_order {
+
+.sales_start,
+.sales_end {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    padding-right: 3px;
-    margin: 0;
-}
-.advance_setting #perOrderTic {
-    margin-bottom: 2px;
-    padding: 0;
-}
-.ticket_popup .add_ticket_container .ticket_per_order textarea  {
-    width: 40%;
-}
-.eTicket {
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-/* .ticket_main_container {
-    display: none;
-} */
-
-/* .event_creat_hidden {
-    display: none;
-} */
-
-.hiden_popup_page {
-    display: none;
-}
-.ticket_popup .add_ticket_container .ticket_type .button_active {
-    background-color: rgb(140, 208, 251);
-    color:  black;
-}
-.ticket_popup .add_ticket_container .ticket_type .button_unactive {
-    background-color: #f8f8f8;
-    color: #000;
-}
-
-#donation_price {
-    background-color: #efefef;
-    color: #000000;
-    margin-bottom: 13px;
 }

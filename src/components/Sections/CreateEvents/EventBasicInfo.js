@@ -57,11 +57,11 @@ function EventBasicInfo() {
       <p>This profile describes a unique organizer and shows all of the on one page. View Organizer Info</p>
       <div className="cat_container">
         <select name="eventType" onChange={handleFormDataChange}>
-          <option value="Live Event">Live Event</option>
+          <option value="Live Event">Types</option>
           <option value="Concert Event">Concert Event</option>
         </select>
         <select name="eventCategory" onChange={handleFormDataChange}>
-          <option value="Live Event">Live Event</option>
+          <option value="Live Event">Category</option>
           <option value="Concert Event">Concert Event</option>
         </select>
       </div>

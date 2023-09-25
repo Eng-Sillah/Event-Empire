@@ -70,7 +70,9 @@
     transform: rotate(45deg);
     margin-left: 2px;
   } */
-  
+  .menu-icon {
+    background-color: black;
+  }
   
   /* Add media query for screens smaller than 768px */
   @media (max-width: 768px) {

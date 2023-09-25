@@ -31,9 +31,9 @@
     padding: 15px;
     font-size: 1rem;
     margin-right: 40px;
-    width: 30%;
+    width: 100%;
     cursor: pointer;
-    border-color: blue;
+    border-color: rgb(252, 138, 7)
 }
 
 .basic_main_container .tags-area{
@@ -41,6 +41,8 @@
     text-align: left;
     width: 80%;
 }
+
+
 
 .basic_main_container .tags-area .tag_contron {
     width: 100%;
@@ -61,7 +63,7 @@
 .basic_main_container button {
     padding: 5px 15px;
     font-weight: bolder;
-    background-color: blue;
+    background-color: rgb(252, 138, 7);
     color: white;
     border-radius: 5px;
     border: none;
@@ -71,7 +73,7 @@
     margin-bottom: 5px;
 }
 .basic_main_container button:hover {
-    background-color: rgb(49, 49, 248);
+    background-color: rgb(193, 105, 4);
 }
 
 .basic_main_container .locations {
@@ -182,4 +184,90 @@ cursor: pointer;
 .timeAndLanguage {
     display: flex;
     flex-direction: column;
+}
+
+/* Responsive styles for screens smaller than 768px */
+@media (max-width: 768px) {
+    /* Adjust padding and font size for better mobile experience */
+    .basic_main_container {
+        padding: 2rem 0;
+        width: 90%;
+    }
+
+    .basic_main_container p {
+        text-align: justify;
+    }
+
+    .basic_main_container .cat_container  {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .basic_main_container .cat_container select {
+        margin: 5px;
+        width: 45%;
+    }
+
+    .basic_main_container textarea {
+        width: 100%;
+    }
+
+    .basic_main_container .tag_discovery,
+    .basic_main_container .tags-area button {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+
+    .basic_main_container .tags-area {
+        width: 100%;
+        text-align: justify;
+    }
+
+    .basic_main_container .tags-area .tag_contron input {
+        width: 85%;
+    }
+
+    .basic_main_container .tag_contron {
+        flex-direction: row;
+    }
+
+    .basic_main_container .locations {
+        justify-content: space-between;
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .basic_main_container .locations div  {
+        width: fit-content;
+    }
+
+    .venue_search {
+        width: 100%;
+    }
+    /* Adjust font size and padding for better mobile experience */
+    .basic_main_container h2,
+    .basic_main_container h4 {
+        font-size: 1.3rem;
+    }
+
+    .basic_main_container button {
+        padding: 0.8rem 1.6rem;
+    }
+
+    .time_container {
+        width: 100%;
+    }
+
+    .display {
+        align-items: center;
+    }
+    .display label {
+        text-align: justify;
+        margin-left: 2px;
+    }
+
+    .timeAndLanguage {
+       width: 100%;
+    }
 }

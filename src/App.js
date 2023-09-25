@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
 import Layout from './components/Sections/Layout';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import EventBasicInfo from './components/Sections/CreateEvents/EventBasicInfo';
 import CreateEventDashboard from './components/Sections/CreateEvents/CreateEventDashboard';
 import conquestImage from './img/the conquest.jpg';
@@ -242,15 +242,11 @@ function App() {
 
         {/* Home Section */}
         <Routes>
-          <Route path="/layout" element={<section id="home"><div className="content"><Layout eventData={eventsData} /></div></section>} />
-        </Routes>
-
-        {/* Route for Create Event */}
-        <Routes>
+          <Route path="/" element={<section id="home"><div className="content"><Layout eventData={eventsData} /></div></section>} />
           <Route path="/create-event" element={<EventBasicInfo />} />
           <Route path="/create-event/create-event-dashboard" element={<CreateEventDashboard />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );

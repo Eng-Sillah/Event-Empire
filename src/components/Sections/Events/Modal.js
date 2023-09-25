@@ -26,8 +26,8 @@ export default class Modal extends Component {
                     <p>{this.props.eventDescription}</p>
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Live Demo</button>
-                    <button type="button" className="btn btn-primary">Github</button>
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Ping</button>
+                    <button type="button" className="btn btn-primary">But Ticket</button>
                 </div>
                 </div>
             </div>

@@ -1,30 +1,69 @@
 // BasicInfo.js
-import React from 'react';
+import React, { useState } from 'react';
 import "./Details.css"
 
 function Details() {
+    const [backgroundImage, setBackgroundImage] = useState(null);
+
+    // Function to handle image upload
+    const handleImageUpload = (e) => {
+      const file = e.target.files[0];
+  
+      if (file) {
+        // Create a URL for the selected image
+        const imageUrl = URL.createObjectURL(file);
+  
+        // Set the background image
+        setBackgroundImage(imageUrl);
+      }
+    };
+  
+    // // Function to show upload options on hover
+    // const showUploadOptions = () => {
+    //   // Display the upload options when hovering over the image
+    //   document.getElementById('uploadOptions').style.display = 'block';
+    // };
+  
+    // // Function to hide upload options on mouse leave
+    // const hideUploadOptions = () => {
+    //   // Hide the upload options when the mouse leaves the image
+    //   document.getElementById('uploadOptions').style.display = 'none';
+    // };
+
+
   return (
     <div className="detail event_creat_hidden">
     <h2>Main Event Image</h2>
     <p>Add photos to show what your event will be about. You can upload up to 10 images</p>
-    <div className="detail_image_container">
+    <div 
+        className="detail_image_container" 
+        style={{ backgroundImage: `url(${backgroundImage})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
         <h4>Drag and drop an image or</h4>
-        <div className="upload_way ">
-            <div className="upload ways">
-                <p>Upload Image</p>
-            </div>
-            <div className="design_way ways">
-                <p>Design with canva</p>
-            </div>
+        <div className="upload_way">
+          <div className="upload ways">
+            <label htmlFor="imageInput" className="upload-label">
+              Upload Image
+              <input
+                type="file"
+                id="imageInput"
+                accept="image/jpeg, image/png"
+                onChange={handleImageUpload}
+                style={{ display: 'none' }}
+              />
+            </label>
+          </div>
+          <div className="design_way ways">
+            <p>Design with canva</p>
+          </div>
         </div>
-    </div>
-    <div className="upload_sizes">
+      </div>
+      <div className="upload_sizes">
         <ul>
-            <li>Remommended image size: 2160 x 1080px</li>
-            <li>Maximum file size: 10MB</li>
-            <li>Supported image files: JPEG or PNG</li>
+          <li>Recommended image size: 2160 x 1080px</li>
+          <li>Maximum file size: 10MB</li>
+          <li>Supported image files: JPEG or PNG</li>
         </ul>
-    </div>
+      </div>
 
     <div className="attendees_sta">
         <div className="stat">
@@ -46,7 +85,7 @@ function Details() {
     <div className="description">
         <h2>Description</h2>
 <p>Add more details to your event like your schedule, sponsors, or featured guests. <span>Learn More</span></p>
-<textarea name="t1" id="t1" cols="20" rows="10"></textarea>
+<textarea name="t1" id="t1" cols="20" rows="10" className='detailDescription' />
         <div className="textAreaOptionControls">
             <button>Add Text</button>
             <button>Add image</button>
@@ -61,8 +100,8 @@ function Details() {
 <div className="work_sect">
     <div>
         agender
-    </div>
-    <div>
+    </div >
+    <div className="content">
         <span>how it work</span>
         <button>Add</button>
     </div>
@@ -72,7 +111,7 @@ function Details() {
     <div>
         FAQ
     </div>
-    <div>
+    <div className="content">
         <span>how it work</span>
         <button>Add</button>
     </div>

@@ -1,180 +1,294 @@
-import React from 'react';
-import "./Ticket.css";
+import React, { useState } from 'react';
+import './Ticket.css';
 
-function Ticket() {
+const Ticket = () => {
+  const [currentSection, setCurrentSection] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [activeTab, setActiveTab] = useState('Standard');
+
+  const [ticketTypes, setTicketTypes] = useState([
+    {
+      id: 1,
+      name: 'Standard',
+      selected: false,
+      numberOfTickets: 0,
+      price: 0,
+      ticketName: 'Standard Ticket',
+      availabilityDate: '',
+      salesStart: '',
+      salesEnd: '',
+    },
+    {
+      id: 2,
+      name: 'VIP',
+      selected: false,
+      numberOfTickets: 0,
+      price: 0,
+      ticketName: 'VIP Ticket',
+      availabilityDate: '',
+      salesStart: '',
+      salesEnd: '',
+    },
+    {
+      id: 3,
+      name: 'Other',
+      selected: false,
+      numberOfTickets: 0,
+      price: 0,
+      ticketName: 'Other Ticket',
+      availabilityDate: '',
+      salesStart: '',
+      salesEnd: '',
+    },
+  ]);
+
+  const sectionCount = 3; // Total number of sections
+
+  // Function to handle checkbox changes
+  const handleCheckboxChange = (id) => {
+    setSelectedCategory(id);
+    setActiveTab(ticketTypes.find((type) => type.id === id).name);
+    setTicketTypes((prevTicketTypes) =>
+      prevTicketTypes.map((ticketType) =>
+        ticketType.id === id ? { ...ticketType, selected: true } : { ...ticketType, selected: false }
+      )
+    );
+  };
+
+  // Function to handle input changes for the number of tickets
+  const handleTicketTypeChange = (e, id) => {
+    const { value } = e.target;
+    setTicketTypes((prevTicketTypes) =>
+      prevTicketTypes.map((ticketType) =>
+        ticketType.id === id ? { ...ticketType, numberOfTickets: Number(value) } : ticketType
+      )
+    );
+  };
+
+  // Function to handle input changes for the price of tickets
+  const handlePriceChange = (e, id) => {
+    const { value } = e.target;
+    setTicketTypes((prevTicketTypes) =>
+      prevTicketTypes.map((ticketType) =>
+        ticketType.id === id ? { ...ticketType, price: Number(value) } : ticketType
+      )
+    );
+  };
+
+  // Function to handle changes in ticket category information
+  const handleTicketInfoChange = (e, category, field) => {
+    const { value } = e.target;
+    setTicketTypes((prevTicketTypes) =>
+      prevTicketTypes.map((ticketType) =>
+        ticketType.name === category ? { ...ticketType, [field]: value } : ticketType
+      )
+    );
+  };
+
+  // Function to switch active tab
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+    const category = ticketTypes.find((type) => type.name === tab);
+    if (category) {
+      handleCheckboxChange(category.id, tab);
+    }
+  };
+
+  // Function to handle moving to the next section
+  const handleNext = () => {
+    if (currentSection < sectionCount) {
+      setCurrentSection(currentSection + 1);
+    }
+  };
+
+  // Function to handle moving to the previous section
+  const handlePrev = () => {
+    if (currentSection > 1) {
+      setCurrentSection(currentSection - 1);
+    }
+  };
+
   return (
-    <div className="ticket_main_container event_creat_hidden">
-    <div className="big_main">
-    <div className="main">
-    <div className="img_div">
-        <img src="icons/Ticket.png" alt="" />
-    </div>
-        <h3>Let's create tickets</h3>
-        <p>Create a section if you want to sell multiple ticket types that share the same inventory. i.e. Normal, VIP</p>
-        <div className="ticket_section">
-        <button className="section">Create a section</button>
-        <button className="add_ticket">Add tickets</button>
-        </div>
-    </div>
-</div>
-<div className="ticket_popup">
-    <div className="ticket-header">
-    <h3>Add tickets</h3>
-    <p>Learn more</p>
-    </div>
-    <hr />
+    <div className="ticket-container">
+      <div className="section-navigation">
+        {Array.from({ length: sectionCount }, (_, index) => (
+          <div key={index} className={`section-dot ${currentSection === index + 1 ? 'active' : ''}`}>
+            {index + 1}
+          </div>
+        ))}
+      </div>
 
-    <div className="add_ticket_container">
-<div className="ticket_types">
-<div className="ticket_type">
-    <button className="ticketType btnpaid">Paid</button>
-    <button className="ticketType free">Free</button>
-    <button className="ticketType donation">Donation</button>
-    </div>
-<div className="paid">
-    
-    <textarea name="title" placeholder="Name* &#10;General/Admission "></textarea>
-    <textarea name="title" placeholder="Available quantity "></textarea>
-    <textarea name="title" placeholder="Price* &#10;0.00 "></textarea>
-    <div className="event_date_container">
-         <textarea name="title" placeholder="Sales start* &#10;03/05/2023"></textarea>
-    <textarea name="title" placeholder="Start time* &#10;12:00 AM "></textarea>
-    <textarea name="title" placeholder="Sales end* &#10;04/05/2023"></textarea>
-    <textarea name="title" placeholder="End time* &#10;7:00 PM "></textarea>
-    </div>
-    <p className="gmt">Event end time zone is GMT</p>
-    <p className="btnPaidScrol">▼</p>
-    <div className="advance_setting">
-        <p>Advance settings</p>
-        <hr />
-        <div className="displaySales">
-            <input type="checkbox" />
-            <label for="">Show ticket sales end dates and status at checkout</label>
-        </div>
-        <textarea name="title" placeholder="Description* &#10;Tell attendees more about this ticket." id="popTickDesc"></textarea>
-        
-        <div className="visibility">
-            <label for="Visibility">Visibility</label>
-            <select name="" id="">
-                <option value="visible" placeholder="Visibility">Visible</option>
-                <option value="visible" placeholder="Visibility">Hidden</option>
-            </select>
-        </div>
-        <p id="perOrderTic">Ticket per order</p>
-        <div className="ticket_per_order">
-            <textarea className="min_max" name="title" placeholder="Minimum* &#10;1"></textarea>
-            <textarea className="min_max" name="title" placeholder="Maximum* &#10;10"></textarea>
-        </div>
-        <textarea name="title" placeholder="Sales channel &#10;Everywhere"></textarea>
-        <div className="displaySales eTicket">
-            <input type="checkbox" checked />
-            <label for="">eTicket</label>
-        </div>
-    </div>
-    
-</div>
-<div className="free_ticket hiden_popup_page">
+      <div className="section">
+        {currentSection === 1 && (
+          <div>
+            <h2>Section 1: Ticket Types</h2>
+            <p>Select the types of tickets and specify the number of tickets for each category:</p>
+            <div className="ticket-types-container">
+              {ticketTypes.map((ticketType) => (
+                <div key={ticketType.id} className="ticket-type">
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={ticketType.selected}
+                      onChange={() => handleCheckboxChange(ticketType.id)}
+                    />
+                    {ticketType.name}
+                  </label>
+                  {ticketType.selected && (
+                    <input
+                      type="number"
+                      value={ticketType.numberOfTickets}
+                      onChange={(e) => handleTicketTypeChange(e, ticketType.id)}
+                      placeholder={`Number of ${ticketType.name} Tickets`}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-    <textarea name="title" placeholder="Name* &#10;General/Admission "></textarea>
-    <textarea name="title" placeholder="Available quantity "></textarea>
-    <textarea name="title" placeholder="Price* &#10;Free "></textarea>
-    <div className="event_date_container">
-         <textarea name="title" placeholder="Sales start* &#10;03/05/2023"></textarea>
-    <textarea name="title" placeholder="Start time* &#10;12:00 AM "></textarea>
-    <textarea name="title" placeholder="Sales end* &#10;04/05/2023"></textarea>
-    <textarea name="title" placeholder="End time* &#10;7:00 PM "></textarea>
-    </div>
-    <p className="gmt">Event end time zone is GMT</p>
-    <p className="btnPaidScrol">▼</p>
-    <div className="advance_setting">
-        <p>Advance settings</p>
-        <hr />
-        <div className="displaySales">
-            <input type="checkbox" />
-            <label for="">Show ticket sales end dates and status at checkout</label>
-        </div>
-        <textarea name="title" placeholder="Description* &#10;Tell attendees more about this ticket." className="popTickDesc"></textarea>
-        
-        <div className="visibility">
-            <label for="Visibility">Visibility</label>
-            <select name="" id="">
-                <option value="visible" placeholder="Visibility">Visible</option>
-                <option value="visible" placeholder="Visibility">Hidden</option>
-            </select>
-        </div>
-        <p class="perOrderTic">Ticket per order</p>
-        <div class="ticket_per_order">
-            <textarea className="min_max" name="title" placeholder="Minimum* &#10;1"></textarea>
-            <textarea className="min_max" name="title" placeholder="Maximum* &#10;10"></textarea>
-        </div>
-        <textarea name="title" placeholder="Sales channel &#10;Everywhere"></textarea>
-        <div className="displaySales eTicket">
-            <input type="checkbox" checked />
-            <label for="">eTicket</label>
-        </div>
-    </div>
-    
-</div>
-<div className="donation_ticket hiden_popup_page">
-  
-    <textarea name="title" placeholder="Name* &#10;Donation "></textarea>
-    <textarea name="title" placeholder="Available quantity &#10;Unlimited "></textarea>
-    <textarea name="title" placeholder="Price &#10;Attendees can donate what they wish " id="donation_price"></textarea>
-    <div className="displaySales">
-            <input type="checkbox" checked />
-            <label for="">Absorb fees: Ticketing fees are deducted from your donation amount.</label>
-        </div>
-    <div className="event_date_container">
-         <textarea name="title" placeholder="Sales start* &#10;03/05/2023"></textarea>
-    <textarea name="title" placeholder="Start time* &#10;12:00 AM "></textarea>
-    <textarea name="title" placeholder="Sales end* &#10;04/05/2023"></textarea>
-    <textarea name="title" placeholder="End time* &#10;7:00 PM "></textarea>
-    </div>
-    <p className="gmt">Event end time zone is GMT</p>
-    <p className="btnPaidScrol">▼</p>
-    <div className="advance_setting">
-        <p>Advance settings</p>
-        <hr />
-        <div className="displaySales" />
-            <input type="checkbox" />
-            <label for="">Show ticket sales end dates and status at checkout</label>
-        </div>
-        <textarea name="title" placeholder="Description* &#10;Tell attendees more about this ticket." class="popTickDesc"></textarea>
-        
-        <div className="visibility">
-            <label for="Visibility">Visibility</label>
-            <select name="" id="">
-                <option value="visible" placeholder="Visibility">Visible</option>
-                <option value="visible" placeholder="Visibility">Hidden</option>
-            </select>
-        </div>
-        <p className="perOrderTic">Ticket per order</p>
-        <div className="ticket_per_order">
-            <textarea className="min_max" name="title" placeholder="Minimum* &#10;1"></textarea>
-            <textarea className="min_max" name="title" placeholder="Maximum* &#10;10"></textarea>
-        </div>
-        <textarea name="title" placeholder="Sales channel &#10;Online only"></textarea>
-        <div className="displaySales eTicket">
-            <input type="checkbox" checked />
-            <label for="">eTicket</label>
-        </div>
-        <div className="displaySales eTicket">
-            <input type="checkbox" />
-            <label for="">Will call</label>
-        </div>
-    </div>
-    
-</div>
-    <div className="save_cancle">
-    <button className="btncancle">Cancle</button>
-    <button className="save">Save</button>
-    </div>
-</div>
+        {currentSection === 2 && (
+          <div>
+            <h2>Section 2: Set Prices</h2>
+            <p>Set the price for the selected ticket categories:</p>
+            <form>
+              <div className="ticket-types-container">
+                {ticketTypes
+                  .filter((ticketType) => ticketType.selected)
+                  .map((ticketType) => (
+                    <div key={ticketType.id} className="ticket-type">
+                      <label>
+                        {ticketType.name} Price:
+                        <input
+                          type="number"
+                          value={ticketType.price}
+                          onChange={(e) => handlePriceChange(e, ticketType.id)}
+                          placeholder={`Price for ${ticketType.name} Tickets`}
+                        />
+                      </label>
+                    </div>
+                  ))}
+              </div>
+            </form>
+          </div>
+        )}
 
-    </div>
-</div>
+        {currentSection === 3 && (
+          <div>
+            <h2>Section 3</h2>
+            <p>This is section 3 content.</p>
+          </div>
+        )}
+      </div>
 
+      {selectedCategory && (
+        <div className="sidebarRight">
+          <div className="sidebar-header">
+            <h3>Edit Ticket</h3>
+            <h4>Learn More</h4>
+          </div>
+          <div className="tab-content">
+            <div className="tab-control">
+              {ticketTypes.map((ticketType) => (
+                <button
+                  key={ticketType.id}
+                  className={ticketType.name === activeTab ? 'active' : ''}
+                  onClick={() => handleTabClick(ticketType.name)}
+                >
+                  {ticketType.name}
+                </button>
+              ))}
+            </div>
+            {selectedCategory && (
+              <div>
+                <h4>{ticketTypes.find((type) => type.id === selectedCategory).name} Information</h4>
+                <div>
+                  <label>Ticket Name:</label>
+                  <input
+                    type="text"
+                    value={ticketTypes.find((type) => type.id === selectedCategory).ticketName}
+                    onChange={(e) => handleTicketInfoChange(e, activeTab, 'ticketName')}
+                    placeholder={`${activeTab} Ticket`}
+                  />
+                </div>
+                <div>
+                  <label>Number of Tickets:</label>
+                  <input
+                    type="number"
+                    value={ticketTypes.find((type) => type.id === selectedCategory).numberOfTickets}
+                    onChange={(e) => handleTicketTypeChange(e, selectedCategory)}
+                  />
+                </div>
+                <div>
+                  <label>Price per Ticket:</label>
+                  <input
+                    type="number"
+                    value={ticketTypes.find((type) => type.id === selectedCategory).price}
+                    onChange={(e) => handlePriceChange(e, selectedCategory)}
+                  />
+                </div>
+                <div>
+                  <label>Availability Date:</label>
+                  <input
+                    type="date"
+                    value={ticketTypes.find((type) => type.id === selectedCategory).availabilityDate}
+                    onChange={(e) => handleTicketInfoChange(e, activeTab, 'availabilityDate')}
+                  />
+                </div>
+                <div className="sales_start">
+                  <div>
+                    <label>Start Date:</label>
+                    <input
+                      type="date"
+                      value={ticketTypes.find((type) => type.id === selectedCategory).salesStart}
+                      onChange={(e) => handleTicketInfoChange(e, activeTab, 'salesStart')}
+                    />
+                  </div>
+                  <div>
+                    <label>Start Time</label>
+                    <input
+                      type="time"
+                      value={ticketTypes.find((type) => type.id === selectedCategory).salesStart}
+                      onChange={(e) => handleTicketInfoChange(e, activeTab, 'salesStart')}
+                    />
+                  </div>
+                </div>
+
+                <div className="sales_end">
+                  <div>
+                    <label>End Date</label>
+                    <input
+                      type="date"
+                      value={ticketTypes.find((type) => type.id === selectedCategory).salesEnd}
+                      onChange={(e) => handleTicketInfoChange(e, activeTab, 'salesEnd')}
+                    />
+                  </div>
+                  <div>
+                    <label>End Time</label>
+                    <input
+                      type="time"
+                      value={ticketTypes.find((type) => type.id === selectedCategory).salesEnd}
+                      onChange={(e) => handleTicketInfoChange(e, activeTab, 'salesEnd')}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="controls-button">
+            <button>Cancel</button>
+            <button>Save</button>
+          </div>
+        </div>
+      )}
+      <div className="section-buttons">
+        {currentSection > 1 && <button onClick={handlePrev}>Previous</button>}
+        {currentSection < sectionCount && <button onClick={handleNext}>Next</button>}
+        {currentSection === sectionCount && <button>Submit</button>}
+      </div>
+    </div>
   );
-}
+};
 
 export default Ticket;

@@ -67,3 +67,13 @@
 .filled-input {
     background-color: #dfdede; /* You can adjust the color as needed */
   }
+
+  @media (max-width: 768px) {
+    .basic .discovery input {
+        width: 78%;
+    }
+    .basic .discovery .add_tag {
+        width: 20%;
+        font-weight: bolder;
+    }
+  }

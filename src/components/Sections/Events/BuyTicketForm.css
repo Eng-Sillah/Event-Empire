@@ -1,0 +1,132 @@
+/* BuyTicketForm.css */
+
+
+.buyTicketContainer {
+    padding-top: 100px;
+
+}
+
+.buyTicketContainer ul  {
+    margin: 0;
+    padding: 0;
+}
+
+.eventDescription {
+    text-align: justify;
+}
+.buyTicketContainer ul li {
+    list-style: none;
+}
+.custom-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+  }
+  
+  .modal-dialog {
+    max-width: 800px;
+    width: 80%;
+    border-radius: 10px;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 30px 50px;
+    text-align: left;
+  }
+  
+  .modal-header {
+    color: #000;
+    border-radius: 10px 10px 0 0;
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-title {
+    font-size: 24px;
+  }
+  
+  .btn-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .modal-body .event-banner {
+    width: 40%;
+  }
+  
+  .modal-body .event-info {
+    width: 55%;
+    background-color: #fff;
+    
+  }
+
+  .modal-body .event-info p {
+    font-size: 18px;
+  }
+  .buyTicketContainer img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  }
+  
+  .ticketTypes {
+    width: 90%;
+    background-color: rgb(237, 247, 247);
+    margin: 25px 20px;
+    border-radius: 10px;
+  }
+  .ticketTypes:hover {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  }
+.ticket {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.ticketTypes button {
+    width: 100%;
+    font-size: 18px;
+}
+
+
+

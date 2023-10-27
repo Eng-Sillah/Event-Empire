@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
 import Layout from './components/Sections/Layout';
+import EventCreatorWorkspace from './components/Sections/CreateEvents/EventCreatorWorkspace';
 // import Footer from './components/Footer';
 import EventBasicInfo from './components/Sections/CreateEvents/EventBasicInfo';
 import CreateEventDashboard from './components/Sections/CreateEvents/CreateEventDashboard';
+import Login from './components/Sections/Home/Login';
+import BuyTicketForm from './components/Sections/Events/BuyTicketForm';
+import PaymentForm from './components/Payment/PaymentForm';
+import SignUpForm from './components/Sections/Home/SignUpForm';
 import conquestImage from './img/the conquest.jpg';
 import kmeEmpireImage from './img/KME Empire.jpg';
 import AnkaraPool from './img/Ankara Pool.jpg';
@@ -17,7 +22,7 @@ import './App.css';
 
 function App() {
 
-  const eventsData = [
+  const [eventsData, setEventsData] = useState([
     {
       eventId: 1,
       eventBanner: conquestImage,
@@ -34,25 +39,29 @@ function App() {
       eventVenue: "National Stadium, Freetown",
       eventRegion: "Western Area",
       eventPrice: "Le 20",
-      ticketType: [
-        {
-          type: "Free",
-          price: "Le 0",
-        },
-        {
-          type: "Paid",
-          price: "Le 20",
-        },
-        {
-          type: "Donation",
-          price: "Le 200",
-        }
-      ],
+      ticket: {
+        ticketTypes: [
+          {
+            availabilityDate: '',
+            id: '',
+            name: '',
+            numberOfTickets: '',
+            price: '',
+            qrCodes: [],
+            salesEnd: '',
+            salesStart: '',
+            selected: false,
+            ticketName: '',
+          }
+        ],
+      },
       tags:['Tag1', 'Tag2'],
       eventType: "Live Event",
       keyWords: ['Live Band', 'Musical'],
       eventDescription: "Bankist App created during Jonas Schmedtmann's course This is the simple banking app, which was created within the scope of Jonas Schmedtmann's JS course. The project was implemented during the arrays section and arrays' methods, especially **callback** funtctions within them. HTML and CSS code **isn't mine** - it was already provided by Jonas. JS boilerplate (grabbing all elements in DOM and creating object with users) also was provided initially.Since line 65 of _script.js_ file the code is mostly mine, but checked with videos. Nevertheless, I don't code along with Jonas - since he explains the logic in current task, I pause the video and code by myself.",
       active: true,
+      timeZone: '',
+      user: '',
     },
     {
       eventId: 2,
@@ -234,7 +243,13 @@ function App() {
       eventDescription: "Discription about the event",
       active: true,
     },
-  ]
+  ])
+
+
+  function handelNewEvent(newEvent) {
+    setEventsData(((previousIdea) => [...previousIdea, newEvent]))
+    console.log(newEvent)
+  }
   return (
     <Router>
       <div className="App">
@@ -244,7 +259,13 @@ function App() {
         <Routes>
           <Route path="/" element={<section id="home"><div className="content"><Layout eventData={eventsData} /></div></section>} />
           <Route path="/create-event" element={<EventBasicInfo />} />
-          <Route path="/create-event/create-event-dashboard" element={<CreateEventDashboard />} />
+          <Route path="/create-event/create-event-dashboard" element={<CreateEventDashboard updateEvents={handelNewEvent}/>} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signUp' element={<SignUpForm />} />
+          <Route path="/event-creator-workspace" element={<EventCreatorWorkspace />} />
+          <Route path="/buy-ticket-form" element={<BuyTicketForm />} />
+          <Route path="/payment-form" element={<PaymentForm  />} />
+
         </Routes>
         {/* <Footer /> */}
       </div>

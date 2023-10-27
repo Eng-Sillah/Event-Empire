@@ -1,0 +1,16 @@
+#google-login-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(-120deg, #4285F4, #34A853, #fbbc05, #EA4335)!important;
+    font-weight: bolder;
+    font-size: 1.1rem;
+}
+ #google-login-button img {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 10px;
+    margin-right: 10px;
+  }

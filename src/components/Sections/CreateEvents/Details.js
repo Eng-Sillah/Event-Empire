@@ -2,19 +2,20 @@
 import React, { useState } from 'react';
 import "./Details.css"
 
-function Details() {
-    const [backgroundImage, setBackgroundImage] = useState(null);
+function Details(props) {
+  const [backgroundImage, setBackgroundImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null); // Store the selected image file
+
+  const [eventDescription, setEventDescription] = useState(props.formData.eventDescription || '');
 
     // Function to handle image upload
     const handleImageUpload = (e) => {
       const file = e.target.files[0];
   
       if (file) {
-        // Create a URL for the selected image
         const imageUrl = URL.createObjectURL(file);
-  
-        // Set the background image
         setBackgroundImage(imageUrl);
+        setImageFile(imageUrl); // Save the selected image file
       }
     };
   
@@ -30,6 +31,20 @@ function Details() {
     //   document.getElementById('uploadOptions').style.display = 'none';
     // };
 
+    const handleDescriptionChange = (e) => {
+      const newDescription = e.target.value;
+      setEventDescription(newDescription);
+    };
+  
+    const handleSubmit = () => {
+      // Include the image file and event description in the submitted data
+      const newDetailsData = {
+        eventBanner: imageFile,
+        eventDescription: eventDescription,
+        // Add more details here
+      };
+      props.updateFormData(newDetailsData);
+    };
 
   return (
     <div className="detail event_creat_hidden">
@@ -85,7 +100,15 @@ function Details() {
     <div className="description">
         <h2>Description</h2>
 <p>Add more details to your event like your schedule, sponsors, or featured guests. <span>Learn More</span></p>
-<textarea name="t1" id="t1" cols="20" rows="10" className='detailDescription' />
+<textarea
+        name="eventDescription"
+        id="eventDescription"
+        cols="20"
+        rows="10"
+        className="detailDescription"
+        value={eventDescription}
+        onChange={handleDescriptionChange}
+      />
         <div className="textAreaOptionControls">
             <button>Add Text</button>
             <button>Add image</button>
@@ -102,7 +125,7 @@ function Details() {
         agender
     </div >
     <div className="content">
-        <span>how it work</span>
+        <span>how it work</span>  
         <button>Add</button>
     </div>
 </div>
@@ -118,7 +141,7 @@ function Details() {
 </div>
 </div>
     </div>
-    <div className="space"></div>
+    <button onClick={handleSubmit} >Save</button>
 </div>
   );
 }

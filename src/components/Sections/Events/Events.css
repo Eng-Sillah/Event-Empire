@@ -8,11 +8,11 @@
   flex-direction: column;
 }
 
-/* .events .card {
-  height: 400px;
-} */
+.events .card {
+  height: 520px;
+}
 .events .img-container {
-  height: 40%;
+  height: 180px;
   position: relative;
 }
 

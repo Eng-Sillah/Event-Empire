@@ -1,19 +1,61 @@
 import React, { useState } from 'react';
 import './BasicInfo.css';
 
-function BasicInfo({formData}) {
+function BasicInfo(props) {
+  const eventType = [
+    'Type',
+    'Appearance or Singing',
+    'Attraction',
+    'Camp, Trip, or Retreat',
+    'Class, Workshop, or Training',
+    'Concert or Performance',
+    'Conference',
+    'Convention',
+    'Dinner or Gala',
+    'Festival or Fair',
+    'Game or Competition',
+    'Meeting or Networking Event',
+    'Other',
+    'Party or Social Gathering',
+    'Race or Endurance Event',
+    'Seminar or Talk',
+    'Tour',
+    'Tournament',
+  ];
+
+  const eventCategories = [
+    'Category',
+    'Auto, Book & Air',
+    'Business & Professional',
+    'Charity & Causes',
+    'Community & Culture',
+    'Family & Education',
+    'Fashion & Beauty',
+    'Film, Media & Entertainment',
+    'Food & Drink',
+    'Government & Politics',
+    'Health & Wellness',
+    'Hobbies & Special Interest',
+    'Home & Lifestyle',
+    'Music',
+    'Other',
+    'Performing & Visual Arts',
+    'Religious & Spirituality',
+  ];
+
   // Step 1: Set up state
   const [eventBasicInfoData, setEventBasicInfoData] = useState({
-    title: formData.title, // Initialize with the title from formData
-    organizer: formData.organizer, // Initialize with the organizer from formData
+    eventTitle: props.formData.eventTitle || '', // Initialize with the title from formData
+    eventOrganiser: props.formData.eventOrganiser || '', // Initialize with the organizer from formData
     eventType: 'Concert or Performance',
     eventCategory: 'Music',
     eventGenre: 'Dj/Dance',
-    tags: [],
+    tag: '', // Track the tag input
+    tags: props.formData.tags || [],
   });
 
-     // CSS class to apply for input fields that are filled
-     const filledInputClass = (value) => (value ? 'filled-input' : '');
+  // CSS class to apply for input fields that are filled
+  const filledInputClass = (value) => (value ? 'filled-input' : '');
 
   // Step 2: Capture user input and update state
   const handleInputChange = (e) => {
@@ -44,14 +86,15 @@ function BasicInfo({formData}) {
 
 
 
+
+
   // Step 3: Create an object to store all the data
   const handleSubmit = () => {
-    console.log('Event Data:', eventBasicInfoData); // Replace with your logic to send the data
+    props.updateFormData(eventBasicInfoData);
+    // Log the current data
+    // console.log(eventBasicInfoData);
   };
 
-  // Step 4: Dynamically set dropdown options
-  const eventTypeOptions = ['Concert or Performance', 'Live Event', 'Concert Event'];
-  const eventCategoryOptions = ['Music', 'Sports', 'Food', 'Conference'];
   const eventGenreOptions = ['Dj/Dance', 'Rock', 'Pop', 'Hip Hop'];
 
   return (
@@ -62,21 +105,19 @@ function BasicInfo({formData}) {
         type="text"
         name="title"
         placeholder="Event Title"
-        value={eventBasicInfoData.title}
+        value={eventBasicInfoData.eventTitle}
         onChange={handleInputChange}
-        className={filledInputClass(eventBasicInfoData.title)}
-        readOnly // Make the input field read-only
+        className={filledInputClass(eventBasicInfoData.eventTitle)}
       />
       <input
         type="text"
         name="organizer"
         placeholder="Organizer"
-        value={eventBasicInfoData.organizer}
+        value={eventBasicInfoData.eventOrganiser}
         onChange={handleInputChange}
-        className={filledInputClass(eventBasicInfoData.title)}
-        readOnly // Make the input field read-only
+        className={filledInputClass(eventBasicInfoData.eventOrganiser)}
       />
-      
+
       {/* Dynamically set dropdown options */}
       <div className="cat_container">
         <select
@@ -84,9 +125,9 @@ function BasicInfo({formData}) {
           value={eventBasicInfoData.eventType}
           onChange={handleInputChange}
         >
-          {eventTypeOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
+          {eventType.map((type, index) => (
+            <option value={type} key={index}>
+              {type}
             </option>
           ))}
         </select>
@@ -95,7 +136,7 @@ function BasicInfo({formData}) {
           value={eventBasicInfoData.eventCategory}
           onChange={handleInputChange}
         >
-          {eventCategoryOptions.map((option) => (
+          {eventCategories.map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
@@ -115,17 +156,18 @@ function BasicInfo({formData}) {
       </div>
 
       {/* Rest of your JSX */}
-      
       <div className="discovery">
         <input
           type="text"
           name="tag"
           className="tag_discovery"
           placeholder="Press Enter to add a tag. Add search keywords to your event"
-          value={eventBasicInfoData.tag || ''}
+          value={eventBasicInfoData.tag}
           onChange={handleInputChange}
         />
-        <button className='add_tag' onClick={handleAddTag}>Add</button>
+        <button className="add_tag" onClick={handleAddTag}>
+          Add
+        </button>
       </div>
 
       <div className="tag_container">
@@ -137,7 +179,7 @@ function BasicInfo({formData}) {
       </div>
 
       {/* Submit button */}
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit}>Save</button>
     </div>
   );
 }

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './Modal.css';
 
+
 export default class Modal extends Component {
+
+
     render(){
 
         let modelStyle = {
@@ -27,7 +30,7 @@ export default class Modal extends Component {
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Ping</button>
-                    <button type="button" className="btn btn-primary">But Ticket</button>
+                    <button type="button" className="btn btn-primary">Buy Ticket</button>
                 </div>
                 </div>
             </div>

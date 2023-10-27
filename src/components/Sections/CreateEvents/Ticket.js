@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+// import QRCode from 'qrcode.react';
+import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 import './Ticket.css';
 
-const Ticket = () => {
+const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
   const [currentSection, setCurrentSection] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeTab, setActiveTab] = useState('Standard');
@@ -43,6 +45,22 @@ const Ticket = () => {
   ]);
 
   const sectionCount = 3; // Total number of sections
+
+
+  // Function to generate a QR code string
+  const generateQRCode = (ticketType) => {
+    const { eventId } = formData;
+    const qrCodes = [];
+
+    // Generate a unique ID for each ticket
+    for (let i = 0; i < ticketType.numberOfTickets; i++) {
+      const ticketId = uuidv4();
+      const qrCodeString = `${eventId}-${ticketId}-${ticketType.id}-${ticketType.name}`;
+      qrCodes.push(qrCodeString);
+    }
+
+    return qrCodes;
+  };
 
   // Function to handle checkbox changes
   const handleCheckboxChange = (id) => {
@@ -106,6 +124,32 @@ const Ticket = () => {
     if (currentSection > 1) {
       setCurrentSection(currentSection - 1);
     }
+  };
+
+
+
+  // Function to handle form submission
+  const handleSubmit = () => {
+    const updatedTicketTypes = ticketTypes.map((ticketType) => {
+      if (ticketType.numberOfTickets > 0) {
+        const qrCodes = generateQRCode(ticketType);
+        return { ...ticketType, qrCodes };
+      }
+      return ticketType;
+    });
+
+    // Update form data with the QR code strings
+    const updatedFormData = {
+      ...formData,
+      ticket: {
+        ticketTypes: updatedTicketTypes,
+      },
+    };
+
+    updateFormData(updatedFormData);
+    
+     // Call the onShowEventCreator prop to switch to the Event Creator Workspace
+     onShowEventCreator('eventWorkspace');
   };
 
   return (
@@ -278,14 +322,14 @@ const Ticket = () => {
           </div>
           <div className="controls-button">
             <button>Cancel</button>
-            <button>Save</button>
+            <button onClick={handleSubmit}>Save</button>
           </div>
         </div>
       )}
       <div className="section-buttons">
         {currentSection > 1 && <button onClick={handlePrev}>Previous</button>}
         {currentSection < sectionCount && <button onClick={handleNext}>Next</button>}
-        {currentSection === sectionCount && <button>Submit</button>}
+        {currentSection === sectionCount && <button onClick={handleSubmit}>Submit</button>}
       </div>
     </div>
   );

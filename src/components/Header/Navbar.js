@@ -1,13 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Link as ScrollLinks } from 'react-scroll';
+import { auth } from '../../components/Sections/Home/firebase-config';
 
 function Navbar() {
+  const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Add a Firebase authentication state change listener
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in.
+        setUser(user);
+      } else {
+        // User is signed out.
+        setUser(null);
+      }
+    });
+
+    // Unsubscribe the listener when the component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleCreateEvent = () => {
+    if (user) {
+      // The user is logged in, so navigate to the "Create Event" page
+      navigate('/create-event');
+    } else {
+      // The user is not logged in, so redirect to the login page
+      navigate('/login');
+    }
   };
 
   return (
@@ -22,10 +63,28 @@ function Navbar() {
           <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
           <li><ScrollLinks to="events" smooth={true} duration={500} onClick={toggleMenu}>Discover</ScrollLinks></li>
           <li><ScrollLinks to="about" smooth={true} duration={500} onClick={toggleMenu}>About</ScrollLinks></li>
-          {/* Use the "to" attribute with the route path */}
-          <li><Link to="/create-event" onClick={toggleMenu}>Create Event</Link></li>
+          <li><button onClick={handleCreateEvent}>Create Event</button></li>
           <li><ScrollLinks to="contact" smooth={true} duration={500} onClick={toggleMenu}>Contact</ScrollLinks></li>
-          <li><a href="https://github.com/your-username" onClick={toggleMenu}>Login</a></li>
+          <li>
+            {user ? (
+              <>
+                <button onClick={handleLogout} className='logout'>
+                  Logout
+                </button>
+                {user.photoURL && (
+                  <img
+                    src={user.photoURL}
+                    alt='User Avatar'
+                    className='user-avatar'
+                  />
+                )}
+              </>
+            ) : (
+              <NavLink to='/login' activeclassname='active'>
+                Login
+              </NavLink>
+            )}
+          </li>
         </ul>
       </nav>
     </header>

@@ -1,0 +1,59 @@
+/* PaymentForm.css */
+
+.payment-container-main {
+   width: 80%;
+   margin: 0 auto;
+   text-align: left;
+   margin-top: 70px;
+  }
+  
+  .payment-header {
+    display: flex;
+    padding-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+ 
+  .payment-body .btn {
+    margin-bottom: 30px;
+  }
+
+  .paymentInfo label {
+    margin-right: 50px;
+    margin-bottom: 20px;
+  }
+  
+  .modal-title {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .modal-body {
+    margin-top: 20px;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  input[type="radio"],
+  select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  /* Add any additional styles as needed */
+  

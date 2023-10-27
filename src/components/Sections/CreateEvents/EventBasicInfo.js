@@ -1,77 +1,193 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './EventBasicInfo.css';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../Home/firebase-config'; // Import the 'auth' object
+import { v4 as uuidv4 } from 'uuid'; // Import uuid
 
 function EventBasicInfo() {
-  // Step 1: Create state to hold form data
+
   const [formData, setFormData] = useState({
-    title: '',
-    organizer: '',
+    eventTitle: '',
+    eventBanner: '',
+    eventOrganiser: '',
+    eventDescription: '',
     eventType: 'Live Event', // Default value
     eventCategory: 'Live Event', // Default value
     tags: [],
-    venueLocation: '',
-    startDate: '',
-    startTime: '',
-    endDate: '',
-    endTime: '',
+    eventVenue: '',
+    eventDate: {
+      start: '',
+      end: ''
+    },
+    eventTime: {
+      start: '',
+      end: ''
+    },
+    eventRegion: 'Static Region',
     displayStartTime: false,
     displayEndTime: false,
     timeZone: 'GMT+0100 Sierra Leone Time', // Default value
+    eventId: '', // Add eventId field
   });
 
-  // Step 2: Access the history object
+  const eventType = [
+    'Type', 'Appearance or Singing', 'Attraction', 'Camp, Trip, or Retreat', 'Class, Workshop, or Training',
+    'Concert or Performance', 'Conference', 'Convention', 'Dinner or Gala', 'Festival or Fair', 'Game or Competition',
+    'Meeting or Networking Event', 'Other', 'Party or Social Gathering', 'Race or Endurance Event', 'Seminar or Talk',
+    'Tour', 'Tournament'
+  ];
+
+  const eventCategories = [
+    'Category', 'Auto, Book & Air', 'Business & Professional', 'Charity & Causes', 'Community & Culture',
+    'Family & Education', 'Fashion & Beauty', 'Film, Media & Entertainment', 'Food & Drink', 'Government & Politics',
+    'Health & Wellness', 'Hobbies & Special Interest', 'Home & Lifestyle', 'Music', 'Other', 'Performing & Visual Arts',
+    'Religious & Spirituality'
+  ];
+  const [user, setUser] = useState(null); 
+
   const navigate = useNavigate();
 
-  // Step 3: Function to handle form data changes
+  // Effect to get the user ID when the user is authenticated
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setUser(uid);
+      }
+    });
+  }, []);
+
+
+
+
   const handleFormDataChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    // Handle checkbox inputs
-    if (type === 'checkbox') {
-      setFormData({
-        ...formData,
-        [name]: checked,
-      });
+    const { name, value } = e.target;
+    if (name.startsWith('eventDate') || name.startsWith('eventTime')) {
+      // If the name starts with 'eventDate' or 'eventTime', update the nested properties
+      const [obj, propName] = name.split('.'); // Split the name into object and property
+      setFormData((prevData) => ({
+        ...prevData,
+        [obj]: {
+          ...prevData[obj],
+          [propName]: value
+        }
+      }));
     } else {
+      // Otherwise, update the top-level property directly
       setFormData({
         ...formData,
-        [name]: value,
+        [name]: value
       });
     }
   };
 
-  // Step 7: Handle "Save & Continue" button click
-  const handleSaveAndContinue = () => {
-    // Step 8: Pass form data as state to the next route
-    navigate('/create-event/create-event-dashboard', { state: { formData } });
-    
-    // console.log(formData)
+  const handleAddTag = () => {
+    const newTag = formData.tag.trim();
+    if (newTag) {
+      setFormData((prevData) => ({
+        ...prevData,
+        tags: [...prevData.tags, newTag],
+        tag: '', // Clear the tag input
+      }));
+    }
   };
+
+  const handleRemoveTag = (tagToRemove) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      tags: prevData.tags.filter((tag) => tag !== tagToRemove),
+    }));
+  };
+
+  // Add this function to generate a unique event ID
+function generateEventId() {
+  return uuidv4();
+}
+
+// Function to set user and eventId in the formData
+function setUserAndEventId() {
+  // Generate a unique eventId
+  const eventId = generateEventId();
+
+  if (user) {
+    setFormData((prevData) => ({
+      ...prevData,
+      user: user,
+      eventId: eventId,
+    }));
+  }
+}
+
+// Call setUserAndEventId when the component loads or when the user information is available
+useEffect(() => {
+  if (user) {
+    setUserAndEventId();
+  }
+}, [user]);
+
+ // Step 7: Handle "Save & Continue" button click
+ const handleSaveAndContinue = () => {
+      // Generate a unique eventId using uuid
+      const eventId = uuidv4();
+  // Capture the user's ID token and add it to formData
+  if (user) {
+    setFormData((prevData) => ({
+      ...prevData,
+      user: user,
+      eventId: eventId,  // Add the user's ID token
+    }));
+  }
+console.log(formData)
+  // Step 8: Pass form data as state to the next route
+  navigate('/create-event/create-event-dashboard', { state: { formData } });
+};
 
   return (
     <div className="basic_main_container">
       <h2>Basic Info</h2>
       <p>Name your event and tell event-goers why they should come. Add details that highlight what makes it unique.</p>
-      <textarea name="title" placeholder="Event Title* &#10;Be clear and descriptive" onChange={handleFormDataChange}></textarea>
-      <textarea name="organizer" placeholder="Organizer* &#10;Tell attendees who is organizing this event" onChange={handleFormDataChange}></textarea> 
+      <textarea name="eventTitle" placeholder="Event Title* &#10;Be clear and descriptive" onChange={handleFormDataChange}></textarea>
+      <textarea name="eventOrganiser" placeholder="Organizer* &#10;Tell attendees who is organizing this event" onChange={handleFormDataChange}></textarea>
       <p>This profile describes a unique organizer and shows all of the on one page. View Organizer Info</p>
       <div className="cat_container">
         <select name="eventType" onChange={handleFormDataChange}>
-          <option value="Live Event">Types</option>
-          <option value="Concert Event">Concert Event</option>
+          {eventType.map((type, index)=> {
+            return (
+              <option value={type} key={index}>{type}</option>
+            )
+          })}
         </select>
         <select name="eventCategory" onChange={handleFormDataChange}>
-          <option value="Live Event">Category</option>
-          <option value="Concert Event">Concert Event</option>
+          {eventCategories.map((category, index) => {
+              return (
+                <option value={category } key={index}>{category }</option>
+              )
+            })}
         </select>
       </div>
       <div className="tags-area">
-      <h2>Tags</h2>
-      <p className="tag_p">Improve discoverability of your event by adding tags relevant to the subject matter</p>
-      <div className="tag_contron">
-      <input className="tag_discovery" placeholder="Press Enter to add a tag. Add Search keyword to your event" />
-      <button>Add</button>
-      </div>
+        <h2>Tags</h2>
+        <p className="tag_p">Improve discoverability of your event by adding tags relevant to the subject matter</p>
+        <div className="discovery">
+          <input
+            type="text"
+            name="tag"
+            className="tag_discovery"
+            placeholder="Press Enter to add a tag. Add search keywords to your event"
+            value={formData.tag || ''}
+            onChange={handleFormDataChange}
+          />
+          <button className='add_tag' onClick={handleAddTag}>Add</button>
+        </div>
+
+        <div className="tag_container">
+          {formData.tags.map((tag) => (
+            <p key={tag}>
+              {tag} <span className="x" onClick={() => handleRemoveTag(tag)}>X</span>
+            </p>
+          ))}
+        </div>
       </div>
       <h2 className="event_basic_location">Location</h2>
       <p className="location_p">Help people in the area discover your event and let attendees know where to show up.</p>
@@ -81,7 +197,8 @@ function EventBasicInfo() {
         <div className="location">To be announced</div>
       </div>
       <h4 className="venue_location">Venue location</h4>
-      <input type="text" placeholder="Search for a venue or address" className="venue_search" />
+      <input type="text" placeholder="Tell us where the event is taking place" className="venue_search" name="eventVenue"
+          onChange={handleFormDataChange} />
       <h2 className="dateAndTime">Date and Time</h2>
       <p>Tell event-goers when your event starts and ends so they can make plans to attend.</p>
       <div className="locations">
@@ -90,32 +207,32 @@ function EventBasicInfo() {
       </div>
       <p>Single event happened once and can last multiple days.</p>
       <div className="time_container">
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Event Starts&#10; Date"
           onFocus={(e) => (e.target.type = 'date')}
-          name="startDate"
+          name="eventDate.start"
           onChange={handleFormDataChange}
         />
-        <input 
-          type="text" 
-          placeholder="Start Time&#10; Date"
-          onFocus={(e) => (e.target.type = 'date')}
-          name="startTime"
+        <input
+          type="text"
+          placeholder="Event Start&#10; Time"
+          onFocus={(e) => (e.target.type = 'time')}
+          name="eventTime.start"
           onChange={handleFormDataChange}
         />
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Event Ends&#10; Date"
           onFocus={(e) => (e.target.type = 'date')}
-          name="endDate"
+          name="eventDate.end"
           onChange={handleFormDataChange}
         />
-        <input 
-          type="text" 
-          placeholder="End Time&#10; Date"
-          onFocus={(e) => (e.target.type = 'date')}
-          name="endTime"
+        <input
+          type="text"
+          placeholder="Event End Time&#10;"
+          onFocus={(e) => (e.target.type = 'time')}
+          name="eventTime.end"
           onChange={handleFormDataChange}
         />
       </div>
@@ -134,7 +251,7 @@ function EventBasicInfo() {
             (GMT+0100) Sierra Leone Time
           </option>
           <option value="GMT+0100 Nigeria Time">(GMT+0100) Nigeria Time</option>
-        </select> 
+        </select>
         <select name="timeZone" onChange={handleFormDataChange}>
           <option value="GMT+0100 Sierra Leone Time">
             Time Zone (GMT+0100) Sierra Leone Time

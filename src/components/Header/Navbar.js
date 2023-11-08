@@ -3,24 +3,39 @@ import './Navbar.css';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Link as ScrollLinks } from 'react-scroll';
 import { auth } from '../../components/Sections/Home/firebase-config';
-import { getUser, signOut } from '../../Api/auth';
 
 function Navbar() {
   const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [email, setEmail] = useState(null);
+
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     // Add a Firebase authentication state change listener
-    getUser().then((value)=>{
-      setUser(value.data.user)
-      setEmail(value.data.user?.email)
-    })
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in.
+        setUser(user);
+      } else {
+        // User is signed out.
+        setUser(null);
+      }
+    });
+
+    // Unsubscribe the listener when the component unmounts
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -53,17 +68,16 @@ function Navbar() {
           <li>
             {user ? (
               <>
-                <button onClick={()=>{
-                  signOut().then((value)=>{
-                      console.log(value)
-                      window.location.reload()
-                  })
-                }} className='logout'>
+                <button onClick={handleLogout} className='logout'>
                   Logout
                 </button>
-               {user && <div>
-                {email}
-                </div>}
+                {user.photoURL && (
+                  <img
+                    src={user.photoURL}
+                    alt='User Avatar'
+                    className='user-avatar'
+                  />
+                )}
               </>
             ) : (
               <NavLink to='/login' activeclassname='active'>

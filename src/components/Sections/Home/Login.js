@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import {auth} from './firebase-config';
+import { googleAuth, signinuser } from '../../../Api/auth';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Login.css'; // Import the CSS file
 
@@ -9,39 +10,20 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null); // State variable for error message
-
-    const onLogin = (e) => {
+    const [user, setUser] = useState(null)
+    const onLogin =async (e) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                navigate("/");
-                console.log(user);
-            })
-            .catch((error) => {
-                // Set custom error message
-                setError("Wrong username or password");
-                console.log(error);
-            });
-    };
+      await signinuser(email, password).then((value)=>{
+        if(value.data.user){
+            navigate("/")
+            window.location.reload()
+        }else{
+            alert(value.error.message)
+        }
+       })
+console.log(email, password)    };
 
-    const onGoogleLogin = () => {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .then((userCredential) => {
-                // Signed in with Google
-                const user = userCredential.user;
-                navigate("/");
-                console.log(user);
-            })
-            .catch((error) => {
-                // Set custom error message
-                setError("Wrong username or password");
-                console.log(error);
-            });
-    };
-
+  
     return (
         <>
             <main >
@@ -89,7 +71,13 @@ const Login = () => {
 
                             <div>
                                 <button
-                                    onClick={onGoogleLogin}
+                                    onClick={()=>{
+                                        googleAuth().then((val)=>{
+                                            console.log(val)
+                                        }).catch((err)=>{
+                                            console.log(err.data)
+                                        })
+                                    }}
                                     className="google-login-button"
                                 >
                                     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" />

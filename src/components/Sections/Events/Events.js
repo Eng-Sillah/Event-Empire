@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Events.css';
 import { useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 
@@ -6,6 +6,7 @@ function Events(props) {
   // const [modal, setModal] = useState(false);
   // const [tempdata, setTempdata] = useState([]);
 
+  const [event, setEvent]=useState()
   const navigate = useNavigate(); // Initialize the navigate function
 
   const getData = (event) => {

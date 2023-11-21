@@ -104,3 +104,10 @@ export const createTicket =async (
 
   return value
 };
+
+
+//get all events
+export const getAllEvent = async()=>{
+ const value= await supabase.from("Event").select('*')
+ return value
+}

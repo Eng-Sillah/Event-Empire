@@ -1,15 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Publish.css";
-
+import { getUser } from '../../../Api/auth';
+import { getUserEventsDetailsByName } from '../../../Api/apiCalls';
+import Spinner from "react-activity/dist/Dots";
+import "react-activity/dist/Spinner.css";
+import { supabase } from '../../../supabase';
 function Publish({ formData,  updateEvents }) {
+
+  const [userId, setUserId] =useState()
+const [eventName, setEventName] = useState("")
+const [details,setDetails] = useState([])
+  const getEventName=()=>{
+    const event = localStorage.getItem("event")
+setEventName(event)
+  }
   const handlePublishClick = () => {
-    // You can update the formData here before publishing
-    // For example, you can set the publish date and visibility based on user selections.
-    const updatedFormData = { ...formData, published: true };
-    updateEvents(updatedFormData, 'publish'); // Trigger the updateFormData function in CreateEventDashboard.js
+     supabase.from("Event").update({is_publish:true
+    }).eq('id',details.id ).select().then((value)=>{
+      if(value.status===200 || value.status===204){
+        alert("event published")
+      }
+      console.log(value.status)
+    })
     
   };
 
+  useEffect(()=>{
+    getEventName()
+getUser().then((value)=>{
+  setUserId(value.data.user.id);
+})
+
+getUserEventsDetailsByName(eventName).then((value)=>{
+  setDetails(value.data[0])
+})
+
+console.log(details)
+  },[eventName])
+
+  if(details===null){
+    return(
+      <div>
+      <Spinner/>
+      </div>
+    )
+  }
   return (
     <div className="publish_main_container event_creat_hidden">
       <div className="complete_setup">
@@ -29,13 +64,15 @@ function Publish({ formData,  updateEvents }) {
       <h1 id="publish_heading">Publish Your Event</h1>
       <div className="banner_container">
         <div className="ban publish_flyer">
-          <img src={formData.eventBanner} alt="" />
+        
+          <img src={`  https://tvhytsddrqmcdgktxlla.supabase.co/storage/v1/object/public/eventFlag/${details.images}
+          `} alt="" />
         </div>
         <div className="ban publish_title_name">
           <div className="desc">
-            <h2>{formData.eventTitle}</h2>
-            <p>{formData.eventDate.start}</p>
-            <p>{formData.eventVenue}</p>
+            <h2>{details.event_title}</h2>
+            <p>{details.start_date}</p>
+            <p>{details.venue}</p>
             <div className="desc_icon">
               <img src="Icons/Details.png" alt="" />
               <img src="Icons/Ticket.png" alt="" />
@@ -79,12 +116,12 @@ function Publish({ formData,  updateEvents }) {
             <textarea
               className="min_max"
               name="title"
-              placeholder={`Start date\n${formData.eventDate.start}`}
+              placeholder={`Start date\n${details.start_date}`}
             ></textarea>
             <textarea
               className="min_max"
               name="title"
-              placeholder={`Start time\n${formData.startTime}`}
+              placeholder={`Start time\n${details.start_time}`}
             ></textarea>
           </div>
           <p id="time_zone">Time zone is the same as your event's</p>

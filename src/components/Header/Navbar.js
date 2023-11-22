@@ -52,7 +52,7 @@ function Navbar() {
           <li><ScrollLinks to="contact" smooth={true} duration={500} onClick={toggleMenu}>Contact</ScrollLinks></li>
           <li>
             {user ? (
-              <>
+              <div style={{display:'flex'}}>
                 <button onClick={()=>{
                   signOut().then((value)=>{
                       console.log(value)
@@ -64,7 +64,7 @@ function Navbar() {
                {user && <div>
                 {email}
                 </div>}
-              </>
+              </div>
             ) : (
               <NavLink to='/login' activeclassname='active'>
                 Login

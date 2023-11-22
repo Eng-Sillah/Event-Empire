@@ -1,61 +1,32 @@
-import React, { useState } from 'react';
-import './BasicInfo.css';
-
+import React, { useEffect, useState } from "react";
+import "./BasicInfo.css";
+import {
+  eventType,
+  eventCategories,
+  eventGenreOptions,
+} from "../../../Api/datas";
+import { getUserEventsDetails } from "../../../Api/apiCalls";
+import { getUser } from "../../../Api/auth";
+import Spinner from "react-activity/dist/Dots";
+import "react-activity/dist/Spinner.css";
 function BasicInfo(props) {
-  const eventType = [
-    'Type',
-    'Appearance or Singing',
-    'Attraction',
-    'Camp, Trip, or Retreat',
-    'Class, Workshop, or Training',
-    'Concert or Performance',
-    'Conference',
-    'Convention',
-    'Dinner or Gala',
-    'Festival or Fair',
-    'Game or Competition',
-    'Meeting or Networking Event',
-    'Other',
-    'Party or Social Gathering',
-    'Race or Endurance Event',
-    'Seminar or Talk',
-    'Tour',
-    'Tournament',
-  ];
-
-  const eventCategories = [
-    'Category',
-    'Auto, Book & Air',
-    'Business & Professional',
-    'Charity & Causes',
-    'Community & Culture',
-    'Family & Education',
-    'Fashion & Beauty',
-    'Film, Media & Entertainment',
-    'Food & Drink',
-    'Government & Politics',
-    'Health & Wellness',
-    'Hobbies & Special Interest',
-    'Home & Lifestyle',
-    'Music',
-    'Other',
-    'Performing & Visual Arts',
-    'Religious & Spirituality',
-  ];
+  //states
+  const [userId, setUserId] = useState();
+  const [data, setEvent] = useState();
 
   // Step 1: Set up state
   const [eventBasicInfoData, setEventBasicInfoData] = useState({
-    eventTitle: props.formData.eventTitle || '', // Initialize with the title from formData
-    eventOrganiser: props.formData.eventOrganiser || '', // Initialize with the organizer from formData
-    eventType: 'Concert or Performance',
-    eventCategory: 'Music',
-    eventGenre: 'Dj/Dance',
-    tag: '', // Track the tag input
+    eventTitle: props.formData.eventTitle || "", // Initialize with the title from formData
+    eventOrganiser: props.formData.eventOrganiser || "", // Initialize with the organizer from formData
+    eventType: "Concert or Performance",
+    eventCategory: "Music",
+    eventGenre: "Dj/Dance",
+    tag: "", // Track the tag input
     tags: props.formData.tags || [],
   });
 
   // CSS class to apply for input fields that are filled
-  const filledInputClass = (value) => (value ? 'filled-input' : '');
+  const filledInputClass = (value) => (value ? "filled-input" : "");
 
   // Step 2: Capture user input and update state
   const handleInputChange = (e) => {
@@ -72,7 +43,7 @@ function BasicInfo(props) {
       setEventBasicInfoData((prevData) => ({
         ...prevData,
         tags: [...prevData.tags, newTag],
-        tag: '', // Clear the tag input
+        tag: "", // Clear the tag input
       }));
     }
   };
@@ -84,10 +55,6 @@ function BasicInfo(props) {
     }));
   };
 
-
-
-
-
   // Step 3: Create an object to store all the data
   const handleSubmit = () => {
     props.updateFormData(eventBasicInfoData);
@@ -95,28 +62,76 @@ function BasicInfo(props) {
     // console.log(eventBasicInfoData);
   };
 
-  const eventGenreOptions = ['Dj/Dance', 'Rock', 'Pop', 'Hip Hop'];
-
+  useEffect(() => {
+    getUser().then((value) => {
+      setUserId(value.data.user.id);
+    });
+    //get EVent Details
+    getUserEventsDetails(userId).then((value) => {
+      setEvent(value.data);
+      if (value.data) {
+        localStorage.setItem("eventId", value.data[0].id.toString());
+      }
+    });
+  }, [data]);
   return (
     <div className="basic">
       <h2>Basic Info</h2>
-      <p>Name your event and tell event-goers why they should come. Add details that highlight what makes it unique.</p>
-      <input
-        type="text"
-        name="title"
-        placeholder="Event Title"
-        value={eventBasicInfoData.eventTitle}
-        onChange={handleInputChange}
-        className={filledInputClass(eventBasicInfoData.eventTitle)}
-      />
-      <input
-        type="text"
-        name="organizer"
-        placeholder="Organizer"
-        value={eventBasicInfoData.eventOrganiser}
-        onChange={handleInputChange}
-        className={filledInputClass(eventBasicInfoData.eventOrganiser)}
-      />
+      <p>
+        Name your event and tell event-goers why they should come. Add details
+        that highlight what makes it unique.
+      </p>
+
+      {/**event name  */}
+      {data ? (
+        data.map((value) => {
+          localStorage.setItem("event", value.event_title);
+
+          if (
+            value.event_title
+              .toLowerCase()
+              .includes(props.formData.eventTitle.toLowerCase())
+          ) {
+            return (
+              <input
+                type="text"
+                name="title"
+                placeholder="Event Title"
+                value={value.event_title}
+                onChange={handleInputChange}
+                className={filledInputClass(eventBasicInfoData.eventTitle)}
+              />
+            );
+          }
+        })
+      ) : (
+        <Spinner />
+      )}
+
+      {/**event creators */}
+
+      {data ? (
+        data.map((value) => {
+          if (
+            value.organizers
+              .toLowerCase()
+              .includes(props.formData.eventOrganiser.toLowerCase())
+          ) {
+            return (
+              <input
+                type="text"
+                name="organizer"
+                placeholder="Organizer"
+                value={value.organizers}
+                onChange={handleInputChange}
+                className={filledInputClass(eventBasicInfoData.eventOrganiser)}
+              />
+            );
+          }
+        })
+      ) : (
+        <Spinner />
+      )}
 
       {/* Dynamically set dropdown options */}
       <div className="cat_container">
@@ -173,7 +188,10 @@ function BasicInfo(props) {
       <div className="tag_container">
         {eventBasicInfoData.tags.map((tag) => (
           <p key={tag}>
-            {tag} <span className="x" onClick={() => handleRemoveTag(tag)}>X</span>
+            {tag}{" "}
+            <span className="x" onClick={() => handleRemoveTag(tag)}>
+              X
+            </span>
           </p>
         ))}
       </div>

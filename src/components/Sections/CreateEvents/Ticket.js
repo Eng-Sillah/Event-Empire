@@ -1,51 +1,57 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 // import QRCode from 'qrcode.react';
-import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
-import './Ticket.css';
+import { v4 as uuidv4 } from "uuid"; // Import the uuid library
+import "./Ticket.css";
+import { tickets } from "../../../Api/datas";
+import { createTicket } from "../../../Api/apiCalls";
+import { Navigate } from "react-router-dom";
+import Spinner from "react-activity/dist/Dots";
+import "react-activity/dist/Spinner.css";
 
 const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
   const [currentSection, setCurrentSection] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [activeTab, setActiveTab] = useState('Standard');
+  const [activeTab, setActiveTab] = useState("Standard");
 
+  const [isLoading, setIsLoading] = useState(false);
   const [ticketTypes, setTicketTypes] = useState([
     {
       id: 1,
-      name: 'Standard',
+      name: "Standard",
       selected: false,
       numberOfTickets: 0,
       price: 0,
-      ticketName: 'Standard Ticket',
-      availabilityDate: '',
-      salesStart: '',
-      salesEnd: '',
+      ticketName: "Standard Ticket",
+      availabilityDate: "",
+      salesStart: "",
+      salesEnd: "",
     },
     {
       id: 2,
-      name: 'VIP',
+      name: "VIP",
       selected: false,
       numberOfTickets: 0,
       price: 0,
-      ticketName: 'VIP Ticket',
-      availabilityDate: '',
-      salesStart: '',
-      salesEnd: '',
+      ticketName: "VIP Ticket",
+      availabilityDate: "",
+      salesStart: "",
+      salesEnd: "",
     },
     {
       id: 3,
-      name: 'Other',
+      name: "Other",
       selected: false,
       numberOfTickets: 0,
       price: 0,
-      ticketName: 'Other Ticket',
-      availabilityDate: '',
-      salesStart: '',
-      salesEnd: '',
+      ticketName: "Other Ticket",
+      availabilityDate: "",
+      salesStart: "",
+      salesEnd: "",
     },
   ]);
+  const [eventId, setEventId] = useState();
 
   const sectionCount = 3; // Total number of sections
-
 
   // Function to generate a QR code string
   const generateQRCode = (ticketType) => {
@@ -68,7 +74,9 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
     setActiveTab(ticketTypes.find((type) => type.id === id).name);
     setTicketTypes((prevTicketTypes) =>
       prevTicketTypes.map((ticketType) =>
-        ticketType.id === id ? { ...ticketType, selected: true } : { ...ticketType, selected: false }
+        ticketType.id === id
+          ? { ...ticketType, selected: true }
+          : { ...ticketType, selected: false }
       )
     );
   };
@@ -78,7 +86,9 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
     const { value } = e.target;
     setTicketTypes((prevTicketTypes) =>
       prevTicketTypes.map((ticketType) =>
-        ticketType.id === id ? { ...ticketType, numberOfTickets: Number(value) } : ticketType
+        ticketType.id === id
+          ? { ...ticketType, numberOfTickets: Number(value) }
+          : ticketType
       )
     );
   };
@@ -88,7 +98,9 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
     const { value } = e.target;
     setTicketTypes((prevTicketTypes) =>
       prevTicketTypes.map((ticketType) =>
-        ticketType.id === id ? { ...ticketType, price: Number(value) } : ticketType
+        ticketType.id === id
+          ? { ...ticketType, price: Number(value) }
+          : ticketType
       )
     );
   };
@@ -98,7 +110,9 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
     const { value } = e.target;
     setTicketTypes((prevTicketTypes) =>
       prevTicketTypes.map((ticketType) =>
-        ticketType.name === category ? { ...ticketType, [field]: value } : ticketType
+        ticketType.name === category
+          ? { ...ticketType, [field]: value }
+          : ticketType
       )
     );
   };
@@ -126,37 +140,44 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
     }
   };
 
-
-
   // Function to handle form submission
   const handleSubmit = () => {
-    const updatedTicketTypes = ticketTypes.map((ticketType) => {
-      if (ticketType.numberOfTickets > 0) {
-        const qrCodes = generateQRCode(ticketType);
-        return { ...ticketType, qrCodes };
+    setIsLoading(true);
+    console.log(ticketTypes[0].name);
+    createTicket(
+      ticketTypes[1].numberOfTickets,
+      ticketTypes[1].price,
+      ticketTypes[0].numberOfTickets,
+      ticketTypes[0].price,
+      ticketTypes[2].numberOfTickets,
+      ticketTypes[2].price,
+      eventId
+    ).then((value) => {
+      if (value.status === 201 || value.status === 200) {
+        setIsLoading(false);
+        alert("successfully created ticket")
       }
-      return ticketType;
+      console.log(value);
     });
-
-    // Update form data with the QR code strings
-    const updatedFormData = {
-      ...formData,
-      ticket: {
-        ticketTypes: updatedTicketTypes,
-      },
-    };
-
-    updateFormData(updatedFormData);
-    
-     // Call the onShowEventCreator prop to switch to the Event Creator Workspace
-     onShowEventCreator('eventWorkspace');
   };
 
+  const getEventId = () => {
+    const eventId = localStorage.getItem("eventId");
+    setEventId(eventId);
+  };
+  useEffect(() => {
+    getEventId();
+  }, [eventId]);
   return (
     <div className="ticket-container">
       <div className="section-navigation">
         {Array.from({ length: sectionCount }, (_, index) => (
-          <div key={index} className={`section-dot ${currentSection === index + 1 ? 'active' : ''}`}>
+          <div
+            key={index}
+            className={`section-dot ${
+              currentSection === index + 1 ? "active" : ""
+            }`}
+          >
             {index + 1}
           </div>
         ))}
@@ -166,7 +187,10 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
         {currentSection === 1 && (
           <div>
             <h2>Section 1: Ticket Types</h2>
-            <p>Select the types of tickets and specify the number of tickets for each category:</p>
+            <p>
+              Select the types of tickets and specify the number of tickets for
+              each category:
+            </p>
             <div className="ticket-types-container">
               {ticketTypes.map((ticketType) => (
                 <div key={ticketType.id} className="ticket-type">
@@ -237,7 +261,7 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
               {ticketTypes.map((ticketType) => (
                 <button
                   key={ticketType.id}
-                  className={ticketType.name === activeTab ? 'active' : ''}
+                  className={ticketType.name === activeTab ? "active" : ""}
                   onClick={() => handleTabClick(ticketType.name)}
                 >
                   {ticketType.name}
@@ -246,13 +270,24 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
             </div>
             {selectedCategory && (
               <div>
-                <h4>{ticketTypes.find((type) => type.id === selectedCategory).name} Information</h4>
+                <h4>
+                  {
+                    ticketTypes.find((type) => type.id === selectedCategory)
+                      .name
+                  }{" "}
+                  Information
+                </h4>
                 <div>
                   <label>Ticket Name:</label>
                   <input
                     type="text"
-                    value={ticketTypes.find((type) => type.id === selectedCategory).ticketName}
-                    onChange={(e) => handleTicketInfoChange(e, activeTab, 'ticketName')}
+                    value={
+                      ticketTypes.find((type) => type.id === selectedCategory)
+                        .ticketName
+                    }
+                    onChange={(e) =>
+                      handleTicketInfoChange(e, activeTab, "ticketName")
+                    }
                     placeholder={`${activeTab} Ticket`}
                   />
                 </div>
@@ -260,15 +295,23 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
                   <label>Number of Tickets:</label>
                   <input
                     type="number"
-                    value={ticketTypes.find((type) => type.id === selectedCategory).numberOfTickets}
-                    onChange={(e) => handleTicketTypeChange(e, selectedCategory)}
+                    value={
+                      ticketTypes.find((type) => type.id === selectedCategory)
+                        .numberOfTickets
+                    }
+                    onChange={(e) =>
+                      handleTicketTypeChange(e, selectedCategory)
+                    }
                   />
                 </div>
                 <div>
                   <label>Price per Ticket:</label>
                   <input
                     type="number"
-                    value={ticketTypes.find((type) => type.id === selectedCategory).price}
+                    value={
+                      ticketTypes.find((type) => type.id === selectedCategory)
+                        .price
+                    }
                     onChange={(e) => handlePriceChange(e, selectedCategory)}
                   />
                 </div>
@@ -276,8 +319,13 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
                   <label>Availability Date:</label>
                   <input
                     type="date"
-                    value={ticketTypes.find((type) => type.id === selectedCategory).availabilityDate}
-                    onChange={(e) => handleTicketInfoChange(e, activeTab, 'availabilityDate')}
+                    value={
+                      ticketTypes.find((type) => type.id === selectedCategory)
+                        .availabilityDate
+                    }
+                    onChange={(e) =>
+                      handleTicketInfoChange(e, activeTab, "availabilityDate")
+                    }
                   />
                 </div>
                 <div className="sales_start">
@@ -285,16 +333,26 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
                     <label>Start Date:</label>
                     <input
                       type="date"
-                      value={ticketTypes.find((type) => type.id === selectedCategory).salesStart}
-                      onChange={(e) => handleTicketInfoChange(e, activeTab, 'salesStart')}
+                      value={
+                        ticketTypes.find((type) => type.id === selectedCategory)
+                          .salesStart
+                      }
+                      onChange={(e) =>
+                        handleTicketInfoChange(e, activeTab, "salesStart")
+                      }
                     />
                   </div>
                   <div>
                     <label>Start Time</label>
                     <input
                       type="time"
-                      value={ticketTypes.find((type) => type.id === selectedCategory).salesStart}
-                      onChange={(e) => handleTicketInfoChange(e, activeTab, 'salesStart')}
+                      value={
+                        ticketTypes.find((type) => type.id === selectedCategory)
+                          .salesStart
+                      }
+                      onChange={(e) =>
+                        handleTicketInfoChange(e, activeTab, "salesStart")
+                      }
                     />
                   </div>
                 </div>
@@ -304,16 +362,26 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
                     <label>End Date</label>
                     <input
                       type="date"
-                      value={ticketTypes.find((type) => type.id === selectedCategory).salesEnd}
-                      onChange={(e) => handleTicketInfoChange(e, activeTab, 'salesEnd')}
+                      value={
+                        ticketTypes.find((type) => type.id === selectedCategory)
+                          .salesEnd
+                      }
+                      onChange={(e) =>
+                        handleTicketInfoChange(e, activeTab, "salesEnd")
+                      }
                     />
                   </div>
                   <div>
                     <label>End Time</label>
                     <input
                       type="time"
-                      value={ticketTypes.find((type) => type.id === selectedCategory).salesEnd}
-                      onChange={(e) => handleTicketInfoChange(e, activeTab, 'salesEnd')}
+                      value={
+                        ticketTypes.find((type) => type.id === selectedCategory)
+                          .salesEnd
+                      }
+                      onChange={(e) =>
+                        handleTicketInfoChange(e, activeTab, "salesEnd")
+                      }
                     />
                   </div>
                 </div>
@@ -322,14 +390,22 @@ const Ticket = ({ formData, updateFormData, onShowEventCreator }) => {
           </div>
           <div className="controls-button">
             <button>Cancel</button>
-            <button onClick={handleSubmit}>Save</button>
+            <button onClick={handleSubmit}>
+              {isLoading ? <Spinner /> : <p> Submit</p>}
+            </button>{" "}
           </div>
         </div>
       )}
       <div className="section-buttons">
         {currentSection > 1 && <button onClick={handlePrev}>Previous</button>}
-        {currentSection < sectionCount && <button onClick={handleNext}>Next</button>}
-        {currentSection === sectionCount && <button onClick={handleSubmit}>Submit</button>}
+        {currentSection < sectionCount && (
+          <button onClick={handleNext}>Next</button>
+        )}
+        {currentSection === sectionCount && (
+          <button onClick={handleSubmit}>
+            {isLoading ? <Spinner /> : <p> Submit</p>}
+          </button>
+        )}
       </div>
     </div>
   );
